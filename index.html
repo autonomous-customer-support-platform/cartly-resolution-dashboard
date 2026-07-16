@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartly Support & Resolution — Authentication</title>
+    <meta name="description" content="Autonomous Customer Support Resolution Platform" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <!-- Animated orb background -->
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-cyan"></div>
+    <div class="orb orb-magenta"></div>
+    <div class="orb orb-blue"></div>
+
+    <div class="login-page">
+      <div class="login-card glass-card">
+        <!-- Logo -->
+        <div class="login-logo">
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 22h5l5-10 5 10h5L12 2z" fill="url(#logo-grad)"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8"/>
+                <stop offset="1" stop-color="#818cf8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <div>
+            <h1 class="login-brand">CARTLY</h1>
+            <p class="login-tagline">Support & Resolution Platform</p>
+          </div>
+        </div>
+
+        <div class="login-tabs">
+          <button class="login-tab active" data-target="form-user-login">User Login</button>
+          <button class="login-tab" data-target="form-signup">Sign Up</button>
+          <button class="login-tab" data-target="form-admin">Admin</button>
+        </div>
+
+        <div class="login-divider"></div>
+
+        <!-- USER LOGIN FORM -->
+        <form id="form-user-login" class="login-form active-form">
+          <h2 class="login-title">Customer Login</h2>
+          <p class="login-subtitle">Sign in to your customer profile</p>
+
+          <div class="form-group">
+            <label for="ul-email">Email Address</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </span>
+              <input type="email" id="ul-email" placeholder="user@example.com" required />
+            </div>
+          </div>
+          
+          <!-- We just use a mocked password for user login -->
+          <div class="form-group">
+            <label for="ul-password">Password</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </span>
+              <input type="password" id="ul-password" placeholder="••••••••" required />
+            </div>
+          </div>
+
+          <div id="ul-error" class="login-error hidden">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Customer not found. Please sign up first.</span>
+          </div>
+
+          <button type="submit" class="btn-primary btn-login">
+            <span class="btn-text">Log In</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </form>
+
+        <!-- SIGN UP FORM -->
+        <form id="form-signup" class="login-form hidden">
+          <h2 class="login-title">Create Account</h2>
+          <p class="login-subtitle">Register to chat with Cartly support</p>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="su-first">First Name</label>
+              <input type="text" id="su-first" class="form-input" placeholder="Jane" required />
+            </div>
+            <div class="form-group">
+              <label for="su-last">Last Name</label>
+              <input type="text" id="su-last" class="form-input" placeholder="Doe" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="su-email">Email Address</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </span>
+              <input type="email" id="su-email" placeholder="jane.doe@example.com" required />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label for="su-password">Password</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </span>
+              <input type="password" id="su-password" placeholder="••••••••" required />
+            </div>
+          </div>
+
+          <button type="submit" class="btn-primary btn-login">
+            <span class="btn-text">Sign Up</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </form>
+
+        <!-- ADMIN LOGIN FORM -->
+        <form id="form-admin" class="login-form hidden">
+          <h2 class="login-title">Admin Sign In</h2>
+          <p class="login-subtitle">Enter your credentials to access the control panel</p>
+
+          <div class="form-group">
+            <label for="admin-user">Username</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+              </span>
+              <input type="text" id="admin-user" placeholder="admin" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="admin-pass">Password</label>
+            <div class="input-wrap">
+              <span class="input-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </span>
+              <input type="password" id="admin-pass" placeholder="••••••••••" required />
+              <button type="button" class="toggle-pw" tabindex="-1">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+              </button>
+            </div>
+          </div>
+
+          <div id="admin-error" class="login-error hidden">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+            <span>Invalid credentials. Try <code>admin</code> / <code>cartly-admin</code></span>
+          </div>
+
+          <button type="submit" class="btn-primary btn-login">
+            <span class="btn-text">Sign In</span>
+            <span class="spinner hidden"></span>
+          </button>
+        </form>
+
+        <div class="login-hint">
+          <span class="hint-dot"></span>
+          Secured access · Cartly Support v2.0
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/login.js"></script>
+  </body>
+</html>
