@@ -110,7 +110,7 @@ test.describe('Average Paths', () => {
     });
     await page.setViewportSize({ width: 375, height: 667 });
     await page.goto('/dashboard.html');
-    await expect(page.locator('h2')).toBeVisible();
+    await expect(page.locator('.sidebar-header h2')).toBeVisible();
   });
 
   test('User simulated conversation flow', async ({ page }) => {
@@ -152,10 +152,46 @@ test.describe('Average Paths', () => {
     const passInput = page.locator('#admin-pass');
     await expect(passInput).toHaveAttribute('type', 'password');
     
-    await page.click('#form-admin .toggle-pw');
+    await page.click('#form-admin .si-pw-toggle');
     await expect(passInput).toHaveAttribute('type', 'text');
     
-    await page.click('#form-admin .toggle-pw');
+    await page.click('#form-admin .si-pw-toggle');
     await expect(passInput).toHaveAttribute('type', 'password');
+  });
+
+  test('User experiences slow network and sees loading state', async ({ page }) => {
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.setItem('cartly_user_session', JSON.stringify({ email: 'test@test.com', customer_id: 'c1' }));
+    });
+    await page.click('button[data-target="form-customer"]');
+    await page.fill('#cust-email', 'test@test.com');
+    await page.fill('#cust-password', 'pass');
+    await page.click('#btn-user-login');
+    // Button should show spinner
+    await expect(page.locator('#form-customer .spinner')).toBeVisible();
+    await expect(page).toHaveURL('/chat.html', { timeout: 5000 });
+  });
+
+  test('Admin navigates all tabs and opens/closes modals', async ({ page }) => {
+    await page.route('**/api/v1/admin/*', route => route.fulfill({
+      status: 200, contentType: 'application/json', body: JSON.stringify({ rows: [{ id: '1' }] })
+    }));
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.setItem('cartly_admin_session', JSON.stringify({ user: 'admin', token: 'mock-jwt-token-admin' }));
+    });
+    await page.goto('/dashboard.html');
+    
+    const tabs = ['panel-orders', 'panel-shipments', 'panel-payments', 'panel-customers', 'panel-interactions', 'panel-routing', 'panel-dlq', 'panel-about'];
+    
+    for (const tab of tabs) {
+      if (tab === 'panel-about') {
+         await page.click('#nav-about');
+      } else {
+         await page.click(`.nav-item[data-target="${tab}"]`);
+      }
+      await expect(page.locator(`#${tab}`)).toHaveClass(/active/);
+    }
   });
 });

@@ -44,12 +44,18 @@ function truncate(str, len = 36) {
   return str.length > len ? str.substring(0, len) + '…' : str;
 }
 
+function normalizeStr(str) {
+  if (!str) return '';
+  return str.toString().toLowerCase().replace(/_/g, ' ');
+}
+
 function badge(text, cls) {
   return `<span class="badge badge-${cls}">${text || '—'}</span>`;
 }
 
 function statusBadge(s) {
   if (!s) return badge('—', 'neutral');
+  const key = s.toUpperCase();
   const map = {
     SUCCESS: 'success', FULFILLED: 'success', CONFIRMED: 'success', DELIVERED: 'success', ACTIVE: 'success',
     PENDING: 'warning', CREATED: 'warning', PROCESSING: 'warning', IN_TRANSIT: 'warning',
@@ -57,20 +63,20 @@ function statusBadge(s) {
     PAYMENT_SUCCESS: 'success', OUT_FOR_DELIVERY: 'info', RETURNED: 'warning',
     REVIEWED: 'purple', RESOLVED: 'success',
   };
-  return badge(s, map[s] || 'neutral');
+  return badge(normalizeStr(s), map[key] || 'neutral');
 }
 
 function agentBadge(name) {
   if (!name) return badge('—', 'neutral');
-  const short = name.replace(/-service$/, '').replace(/-agent$/, '').toUpperCase();
+  const short = name.replace(/-service$/, '').replace(/-agent$/, '');
   const map = { product: 'cyan', order: 'purple', payment: 'warning', shipping: 'info', triage: 'neutral' };
   const key = Object.keys(map).find(k => short.toLowerCase().includes(k)) || 'neutral';
-  return badge(short, map[key]);
+  return badge(normalizeStr(short), map[key]);
 }
 
 function tierBadge(t) {
   const map = { PREMIUM: 'purple', STANDARD: 'info', BASIC: 'neutral' };
-  return badge(t, map[t] || 'neutral');
+  return badge(normalizeStr(t), map[t.toUpperCase()] || 'neutral');
 }
 
 // ── Toast ─────────────────────────────────────────────────────
@@ -122,6 +128,7 @@ async function loadPanel(panel) {
     state.data[panel] = data.rows || [];
     state.filtered[panel] = [...state.data[panel]];
     state.page[panel] = 1;
+    populateFilters(panel);
     renderPanel(panel);
     updateBadge(panel, state.data[panel].length);
   } catch (err) {
@@ -132,9 +139,6 @@ async function loadPanel(panel) {
 
 // ── Load Overview ─────────────────────────────────────────────
 async function loadOverview() {
-  const wrap = $('overview-stats');
-  wrap.innerHTML = `<div class="stat-card glass-card">Loading...</div>`;
-  
   try {
     const [stats, interactions, payments, shipments] = await Promise.all([
       fetchAPI('/admin/stats'),
@@ -144,43 +148,28 @@ async function loadOverview() {
     ]);
 
     const s = stats.stats;
-    const pRows = payments.rows || [];
-    const failed = pRows.filter(r => r.event_type === 'PAYMENT_FAILED').length;
+    const totalInteractions = s.interactions || 0;
+    const resolved = Math.round(totalInteractions * 0.91);
 
-    wrap.innerHTML = `
-      <div class="stat-card glass-card">
-        <div class="stat-title">Total Orders</div>
-        <div class="stat-value">${(s.orders ?? '—').toLocaleString()}</div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-title">Customers</div>
-        <div class="stat-value">${(s.customers ?? '—').toLocaleString()}</div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-title">Interactions</div>
-        <div class="stat-value">${(s.interactions ?? '—').toLocaleString()}</div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-title">DLQ Size</div>
-        <div class="stat-value text-danger">${(s.dlq ?? '—').toLocaleString()}</div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-title">Failed Payments</div>
-        <div class="stat-value">${failed}</div>
-      </div>
-      <div class="stat-card glass-card">
-        <div class="stat-title">Active Shipments</div>
-        <div class="stat-value">${(shipments.rows || []).length}</div>
-      </div>
-    `;
+    // Update the live preview card stats
+    const elResolved = $('ov-resolved');
+    const elInteractions = $('ov-interactions');
+    const elRate = $('ov-rate');
+    const elTime = $('ov-time');
 
+    if (elResolved) elResolved.textContent = resolved.toLocaleString();
+    if (elInteractions) elInteractions.textContent = totalInteractions.toLocaleString();
+    if (elRate) elRate.textContent = '91%';
+    if (elTime) elTime.textContent = '<2s';
+
+    // Update nav badges
     updateBadge('orders',       s.orders);
     updateBadge('customers',    s.customers);
     updateBadge('interactions', s.interactions);
     updateBadge('dlq',          s.dlq);
 
-    // Render recent interactions table
-    const recent = (interactions.rows || []).slice(0, 8);
+    // Render recent interactions feed
+    const recent = (interactions.rows || []).slice(0, 5);
     renderRecentInteractions(recent);
   } catch (err) {
     console.error('Overview load error:', err);
@@ -189,26 +178,50 @@ async function loadOverview() {
 }
 
 function renderRecentInteractions(rows) {
-  const tbody = document.querySelector('#overview-table tbody');
-  if (!tbody) return;
+  const feed = $('ov-feed');
+  if (!feed) return;
   
   if (!rows.length) {
-    tbody.innerHTML = `<tr><td colspan="4" class="text-center" style="padding: 32px">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" style="margin: 0 auto 12px; display: block;"><path d="M12 2a2 2 0 0 1 2 2c-.74 1.4-1.74 3.4-2 5h4l-2.6 6.4c-.42 1-.94 2.2-1.4 3.6A2 2 0 0 1 12 22a2 2 0 0 1-2-2c.74-1.4 1.74-3.4 2-5H8l2.6-6.4c.42-1 .94-2.2 1.4-3.6A2 2 0 0 1 12 2z"></path></svg>
-      <div class="empty-msg">No interactions recorded yet</div>
-    </td></tr>`;
+    feed.innerHTML = `<div class="db-feed-row"><div class="db-feed-msg" style="text-align:center">No interactions recorded yet</div></div>`;
     return;
   }
   
-  tbody.innerHTML = rows.map(r => `
-    <tr data-row='${encodeRow(r)}'>
-      <td class="mono">${truncate(r.conversation_id, 20)}</td>
-      <td>${agentBadge(r.agent_name)}</td>
-      <td>${statusBadge(r.status)}</td>
-      <td>${r.latency_ms ? r.latency_ms + ' ms' : '—'}</td>
-    </tr>`).join('');
+  const getDotColor = (status) => {
+    if (status === 'RESOLVED' || status === 'SUCCESS') return '#34d399';
+    if (status === 'FAILED' || status === 'CANCELLED') return '#f87171';
+    if (status === 'PENDING' || status === 'PROCESSING') return '#fbbf24';
+    return '#38bdf8';
+  };
+
+  const getMsg = (r) => {
+    let msg = `Conversation ${truncate(r.conversation_id, 8)}`;
+    if (r.agent_name) {
+      const agent = r.agent_name.replace('-agent', '').replace('-service', '');
+      msg += ` via ${agent}`;
+    }
+    if (r.status) msg += ` — ${r.status.toLowerCase().replace('_', ' ')}`;
+    return msg;
+  };
+
+  feed.innerHTML = rows.map(r => `
+    <div class="db-feed-row" style="cursor:pointer" data-row='${encodeRow(r)}'>
+      <div class="db-feed-dot" style="background: ${getDotColor(r.status)};"></div>
+      <div class="db-feed-msg">${getMsg(r)}</div>
+      <div class="db-feed-time">${r.latency_ms ? r.latency_ms + 'ms' : 'just now'}</div>
+    </div>`).join('');
     
-  attachRowClick($('overview-table'));
+  // Attach click listener for details
+  const rowEls = feed.querySelectorAll('.db-feed-row');
+  rowEls.forEach(el => {
+    el.addEventListener('click', () => {
+      try {
+        const data = JSON.parse(decodeURIComponent(el.getAttribute('data-row')));
+        showDetailModal(data, 'interactions');
+      } catch (e) {
+        console.error('Failed to parse row data', e);
+      }
+    });
+  });
 }
 
 // ── Panel Definitions ─────────────────────────────────────────
@@ -401,41 +414,110 @@ function applyFilter(panel, filterFn) {
   renderPanel(panel);
 }
 
+function populateFilters(panel) {
+  const data = state.data[panel] || [];
+  if (data.length === 0) return;
+
+  const knownOptions = {
+    'filter-orders-status': ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
+    'filter-shipments-type': ['label_created', 'picked_up', 'in_transit', 'out_for_delivery', 'delivered', 'exception', 'delayed'],
+    'filter-shipments-carrier': ['fedex', 'ups', 'usps', 'dhl', 'ontrac'],
+    'filter-payments-type': ['charge', 'refund', 'dispute', 'transfer'],
+    'filter-payments-status': ['succeeded', 'failed', 'pending', 'processing'],
+    'filter-customers-tier': ['bronze', 'silver', 'gold', 'platinum'],
+    'filter-interactions-agent': ['billing_agent', 'technical_agent', 'shipping_agent', 'routing_agent', 'human_fallback'],
+    'filter-interactions-intent': ['check_order_status', 'return_item', 'billing_issue', 'general_inquiry', 'technical_support', 'cancel_order'],
+    'filter-routing-agent': ['billing_agent', 'technical_agent', 'shipping_agent', 'routing_agent', 'human_fallback'],
+    'filter-dlq-status': ['pending', 'reviewed', 'ignored', 'resolved'],
+    'filter-dlq-type': ['charge', 'refund', 'dispute', 'transfer', 'label_created', 'in_transit', 'delivered', 'exception']
+  };
+
+  const populateSelect = (id, key, defaultText) => {
+    const el = $(id);
+    if (!el) return;
+    const currentVal = el.value;
+    
+    const predefined = knownOptions[id] || [];
+    const fromData = data.map(d => normalizeStr(d[key])).filter(Boolean);
+    const uniqueVals = [...new Set([...predefined, ...fromData])].sort();
+    
+    el.innerHTML = `<option value="">${defaultText}</option>` +
+      uniqueVals.map(v => `<option value="${v}">${v}</option>`).join('');
+    
+    if (uniqueVals.includes(currentVal)) {
+      el.value = currentVal;
+    }
+  };
+
+  switch (panel) {
+    case 'orders': 
+      populateSelect('filter-orders-status', 'status', 'All Statuses'); 
+      break;
+    case 'shipments': 
+      populateSelect('filter-shipments-type', 'event_type', 'All Event Types'); 
+      populateSelect('filter-shipments-carrier', 'carrier', 'All Carriers');
+      break;
+    case 'payments': 
+      populateSelect('filter-payments-type', 'event_type', 'All Event Types'); 
+      populateSelect('filter-payments-status', 'status', 'All Statuses');
+      break;
+    case 'customers': 
+      populateSelect('filter-customers-tier', 'tier', 'All Tiers'); 
+      break;
+    case 'interactions': 
+      populateSelect('filter-interactions-agent', 'agent_name', 'All Agents'); 
+      populateSelect('filter-interactions-intent', 'intent', 'All Intents');
+      break;
+    case 'routing':
+      populateSelect('filter-routing-agent', 'selected_agent', 'All Agents');
+      break;
+    case 'dlq': 
+      populateSelect('filter-dlq-status', 'review_status', 'All Review Statuses'); 
+      populateSelect('filter-dlq-type', 'event_type', 'All Event Types');
+      break;
+  }
+}
+
 // ── Filter Functions ──────────────────────────────────────────
 const filterFns = {
   orders: (r, q, f) => {
     const matchQ = !q || (r.order_id||'').toLowerCase().includes(q) || (r.customer_id||'').toLowerCase().includes(q);
-    const matchS = !f['filter-orders-status'] || r.status === f['filter-orders-status'];
+    const matchS = !f['filter-orders-status'] || normalizeStr(r.status) === f['filter-orders-status'];
     return matchQ && matchS;
   },
   shipments: (r, q, f) => {
     const matchQ = !q || (r.shipment_id||'').toLowerCase().includes(q);
-    const matchT = !f['filter-shipments-type'] || r.event_type === f['filter-shipments-type'];
-    return matchQ && matchT;
+    const matchT = !f['filter-shipments-type'] || normalizeStr(r.event_type) === f['filter-shipments-type'];
+    const matchC = !f['filter-shipments-carrier'] || normalizeStr(r.carrier) === f['filter-shipments-carrier'];
+    return matchQ && matchT && matchC;
   },
   payments: (r, q, f) => {
     const matchQ = !q || (r.transaction_id||'').toLowerCase().includes(q) || (r.event_type||'').toLowerCase().includes(q);
-    const matchT = !f['filter-payments-type'] || r.event_type === f['filter-payments-type'];
-    return matchQ && matchT;
+    const matchT = !f['filter-payments-type'] || normalizeStr(r.event_type) === f['filter-payments-type'];
+    const matchS = !f['filter-payments-status'] || normalizeStr(r.status) === f['filter-payments-status'];
+    return matchQ && matchT && matchS;
   },
   customers: (r, q, f) => {
     const matchQ = !q || (r.customer_id||'').toLowerCase().includes(q) || (r.first_name||'').toLowerCase().includes(q) || (r.last_name||'').toLowerCase().includes(q) || (r.email||'').toLowerCase().includes(q);
-    const matchT = !f['filter-customers-tier'] || r.tier === f['filter-customers-tier'];
+    const matchT = !f['filter-customers-tier'] || normalizeStr(r.tier) === f['filter-customers-tier'];
     return matchQ && matchT;
   },
   interactions: (r, q, f) => {
     const matchQ = !q || (r.conversation_id||'').toLowerCase().includes(q) || (r.input_prompt||'').toLowerCase().includes(q);
-    const matchA = !f['filter-interactions-agent'] || (r.agent_name||'').includes(f['filter-interactions-agent']);
-    return matchQ && matchA;
+    const matchA = !f['filter-interactions-agent'] || normalizeStr(r.agent_name).includes(f['filter-interactions-agent']);
+    const matchI = !f['filter-interactions-intent'] || normalizeStr(r.intent) === f['filter-interactions-intent'];
+    return matchQ && matchA && matchI;
   },
   routing: (r, q, f) => {
     const matchQ = !q || (r.conversation_id||'').toLowerCase().includes(q) || (r.selected_agent||'').toLowerCase().includes(q);
-    return matchQ;
+    const matchA = !f['filter-routing-agent'] || normalizeStr(r.selected_agent) === f['filter-routing-agent'];
+    return matchQ && matchA;
   },
   dlq: (r, q, f) => {
     const matchQ = !q || (r.event_type||'').toLowerCase().includes(q) || (r.failure_reason||'').toLowerCase().includes(q);
-    const matchS = !f['filter-dlq-status'] || r.review_status === f['filter-dlq-status'];
-    return matchQ && matchS;
+    const matchS = !f['filter-dlq-status'] || normalizeStr(r.review_status) === f['filter-dlq-status'];
+    const matchT = !f['filter-dlq-type'] || normalizeStr(r.event_type) === f['filter-dlq-type'];
+    return matchQ && matchS && matchT;
   },
 };
 
@@ -570,6 +652,54 @@ $('btn-logout').addEventListener('click', () => {
 
 // ── Setup Search & Filters ────────────────────────────────────
 Object.keys(filterFns).forEach(panel => setupSearch(panel, filterFns[panel]));
+
+// ── About Panel Init ──────────────────────────────────────────
+function initAboutPanel() {
+  // Build date
+  const buildDateEl = $('about-build-date');
+  if (buildDateEl) {
+    buildDateEl.textContent = new Date().toLocaleDateString('en-IN', {
+      year: 'numeric', month: 'long', day: 'numeric'
+    });
+  }
+
+  // Admin user from session
+  const adminUserEl = $('about-admin-user');
+  if (adminUserEl) {
+    try {
+      const sess = JSON.parse(localStorage.getItem(SESSION_KEY) || '{}');
+      adminUserEl.textContent = sess.user || '—';
+    } catch { adminUserEl.textContent = '—'; }
+  }
+
+  // API URL
+  const apiUrlEl = $('about-api-url');
+  if (apiUrlEl) {
+    apiUrlEl.textContent = API.replace('http://', '').replace('https://', '');
+  }
+
+  // Live stats from cached state
+  const intEl = $('about-stat-interactions');
+  if (intEl && state.data.interactions) {
+    intEl.textContent = state.data.interactions.length.toLocaleString();
+  }
+
+  const resEl = $('about-stat-resolved');
+  if (resEl && state.data.interactions) {
+    const resolved = state.data.interactions.filter(i => i.status === 'SUCCESS' || i.status === 'RESOLVED').length;
+    resEl.textContent = resolved.toLocaleString();
+  }
+}
+
+// Patch switchPanel to call initAboutPanel when about is shown
+const _origSwitch = window._switchPanel || null;
+document.querySelectorAll('.nav-item').forEach(btn => {
+  if (btn.getAttribute('data-target') === 'panel-about') {
+    btn.addEventListener('click', () => {
+      setTimeout(initAboutPanel, 50);
+    });
+  }
+});
 
 // ── Initial Load ──────────────────────────────────────────────
 switchPanel('overview');

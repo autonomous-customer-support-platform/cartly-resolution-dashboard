@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartly — Autonomous Customer Support</title>
+    <meta name="description" content="Cartly automatically resolves customer support queries end-to-end — no wait times, no ticket queues. Higher satisfaction, lower costs, full control for your ops team." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/about-page.css" />
+  </head>
+  <body class="ap-body">
+
+    <!-- Background gradient mesh -->
+    <div class="ap-orb ap-orb-1"></div>
+    <div class="ap-orb ap-orb-2"></div>
+    <div class="ap-orb ap-orb-3"></div>
+
+    <!-- ══════════════════════════════════════════
+         NAVBAR
+    ══════════════════════════════════════════ -->
+    <header class="ap-nav" id="ap-nav">
+      <div class="ap-nav-inner">
+        <a href="/" class="ap-nav-logo">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 22h5l5-10 5 10h5L12 2z" fill="url(#nav-g)"/>
+            <defs>
+              <linearGradient id="nav-g" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          CARTLY
+        </a>
+        <nav class="ap-nav-links" aria-label="Main navigation">
+          <a href="#impact" class="ap-nav-link">Business Impact</a>
+          <a href="#customers" class="ap-nav-link">For Customers</a>
+          <a href="#ops" class="ap-nav-link">For Ops Teams</a>
+        </nav>
+        <a href="/" class="ap-nav-cta">Sign In →</a>
+      </div>
+    </header>
+
+
+    <!-- ══════════════════════════════════════════
+         HERO SECTION
+         21st.dev pattern: large centered hero
+         with animated headline + stat pills
+    ══════════════════════════════════════════ -->
+    <section class="ap-hero" aria-label="Hero">
+      <div class="ap-container ap-hero-inner">
+
+        <!-- Eyebrow badge -->
+        <div class="ap-badge" data-ap-animate data-delay="0">
+          <span class="ap-live-dot"></span>
+          Autonomous Support · Always On
+        </div>
+
+        <!-- Main headline -->
+        <h1 class="ap-hero-h1" data-ap-animate data-delay="80">
+          Customer support that<br/>
+          <span class="ap-hero-grad">resolves itself</span>
+        </h1>
+
+        <!-- Sub copy -->
+        <p class="ap-hero-sub" data-ap-animate data-delay="160">
+          Cartly automatically handles customer queries — from the moment they arrive 
+          to the moment they're resolved — without hold music, ticket queues, or human bottlenecks.
+        </p>
+
+        <!-- CTA row -->
+        <div class="ap-hero-actions" data-ap-animate data-delay="240">
+          <a href="/" class="ap-btn-primary">Get Started Free</a>
+          <a href="#impact" class="ap-btn-ghost">See the impact ↓</a>
+        </div>
+
+        <!-- Floating outcome pills -->
+        <div class="ap-hero-pills" data-ap-animate data-delay="320">
+          <div class="ap-pill ap-pill-green">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            91% tickets resolved automatically
+          </div>
+          <div class="ap-pill ap-pill-cyan">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+            &lt;2 s average resolution
+          </div>
+          <div class="ap-pill ap-pill-purple">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            99.9% uptime · Available 24/7
+          </div>
+        </div>
+
+        <!-- Hero dashboard preview card (21st.dev style glass card) -->
+        <div class="ap-hero-preview" data-ap-animate data-delay="400" aria-hidden="true">
+          <div class="ap-preview-bar">
+            <div class="ap-preview-dots"><span></span><span></span><span></span></div>
+            <div class="ap-preview-title">Live Support Activity</div>
+            <div class="ap-preview-live">
+              <span class="ap-live-dot" style="width:6px;height:6px;"></span>
+              Live
+            </div>
+          </div>
+          <div class="ap-preview-body">
+            <div class="ap-preview-stats">
+              <div class="ap-preview-stat">
+                <div class="ap-preview-val ap-grad-text" id="pv-resolved">—</div>
+                <div class="ap-preview-label">Resolved today</div>
+              </div>
+              <div class="ap-preview-stat">
+                <div class="ap-preview-val ap-grad-text" id="pv-interactions">—</div>
+                <div class="ap-preview-label">Interactions</div>
+              </div>
+              <div class="ap-preview-stat">
+                <div class="ap-preview-val" style="color:#34d399;" id="pv-rate">91%</div>
+                <div class="ap-preview-label">Resolution rate</div>
+              </div>
+              <div class="ap-preview-stat">
+                <div class="ap-preview-val" style="color:#fbbf24;" id="pv-time">&lt;2s</div>
+                <div class="ap-preview-label">Avg. resolution</div>
+              </div>
+            </div>
+            <div class="ap-preview-feed">
+              <div class="ap-feed-row">
+                <span class="ap-feed-dot" style="background:#34d399;"></span>
+                <span class="ap-feed-msg">Order #8821 — Refund approved &amp; processed</span>
+                <span class="ap-feed-time">2s ago</span>
+              </div>
+              <div class="ap-feed-row">
+                <span class="ap-feed-dot" style="background:#38bdf8;"></span>
+                <span class="ap-feed-msg">Shipment delayed — customer notified proactively</span>
+                <span class="ap-feed-time">18s ago</span>
+              </div>
+              <div class="ap-feed-row">
+                <span class="ap-feed-dot" style="background:#fbbf24;"></span>
+                <span class="ap-feed-msg">Payment retry triggered — issue resolved</span>
+                <span class="ap-feed-time">41s ago</span>
+              </div>
+              <div class="ap-feed-row">
+                <span class="ap-feed-dot" style="background:#34d399;"></span>
+                <span class="ap-feed-msg">Customer query answered — order status confirmed</span>
+                <span class="ap-feed-time">1m ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         IMPACT STATS (full-width metric bar)
+    ══════════════════════════════════════════ -->
+    <section class="ap-impact-bar" id="impact">
+      <div class="ap-container">
+        <div class="ap-impact-grid" data-ap-animate>
+          <div class="ap-impact-item">
+            <div class="ap-impact-val ap-grad-text">91%</div>
+            <div class="ap-impact-label">Auto-Resolution Rate</div>
+            <div class="ap-impact-desc">Tickets fully resolved without any human agent involvement</div>
+          </div>
+          <div class="ap-impact-divider"></div>
+          <div class="ap-impact-item">
+            <div class="ap-impact-val ap-grad-text">&lt;2s</div>
+            <div class="ap-impact-label">Average Resolution Time</div>
+            <div class="ap-impact-desc">From the customer's first message to a complete resolution</div>
+          </div>
+          <div class="ap-impact-divider"></div>
+          <div class="ap-impact-item">
+            <div class="ap-impact-val" style="color:#34d399;">70%</div>
+            <div class="ap-impact-label">Cost Reduction</div>
+            <div class="ap-impact-desc">Lower cost-per-resolved-ticket versus traditional support teams</div>
+          </div>
+          <div class="ap-impact-divider"></div>
+          <div class="ap-impact-item">
+            <div class="ap-impact-val" style="color:#fbbf24;">99.9%</div>
+            <div class="ap-impact-label">Platform Uptime</div>
+            <div class="ap-impact-desc">Always available — support that matches your customers' hours</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         FOR CUSTOMERS — Outcome cards
+    ══════════════════════════════════════════ -->
+    <section class="ap-section" id="customers">
+      <div class="ap-container">
+
+        <div class="ap-section-label" data-ap-animate>For Customers</div>
+        <h2 class="ap-section-h2" data-ap-animate data-delay="60">
+          Get the answer you need,<br/>not a ticket number
+        </h2>
+        <p class="ap-section-sub" data-ap-animate data-delay="120">
+          Every Cartly customer gets instant, accurate support — no waiting, no being 
+          bounced between departments.
+        </p>
+
+        <!-- 2×2 outcome card grid -->
+        <div class="ap-cards-grid" data-ap-animate data-delay="180">
+
+          <div class="ap-card">
+            <div class="ap-card-icon ap-card-icon-cyan">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3 class="ap-card-title">Answers in seconds</h3>
+            <p class="ap-card-body">Ask about your order, a missing item, or a delayed delivery and get a clear, accurate answer immediately — not hours later.</p>
+            <div class="ap-card-stat">
+              <span class="ap-stat-number" style="color:#38bdf8;">&lt;2s</span>
+              <span class="ap-stat-label">average response</span>
+            </div>
+          </div>
+
+          <div class="ap-card">
+            <div class="ap-card-icon ap-card-icon-green">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 class="ap-card-title">Refunds without friction</h3>
+            <p class="ap-card-body">Payment issues and refund requests are processed automatically. No forms to fill, no email threads — just a confirmation.</p>
+            <div class="ap-card-stat">
+              <span class="ap-stat-number" style="color:#34d399;">80%</span>
+              <span class="ap-stat-label">of refunds resolved automatically</span>
+            </div>
+          </div>
+
+          <div class="ap-card">
+            <div class="ap-card-icon ap-card-icon-amber">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+            </div>
+            <h3 class="ap-card-title">Live delivery tracking</h3>
+            <p class="ap-card-body">Know exactly where your package is at any moment. Cartly proactively notifies you of delays before you even need to ask.</p>
+            <div class="ap-card-stat">
+              <span class="ap-stat-number" style="color:#fbbf24;">24/7</span>
+              <span class="ap-stat-label">always available</span>
+            </div>
+          </div>
+
+          <div class="ap-card">
+            <div class="ap-card-icon ap-card-icon-purple">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+            </div>
+            <h3 class="ap-card-title">Private &amp; secure</h3>
+            <p class="ap-card-body">Your account information and order history are handled with strict data safety controls. We never share your details.</p>
+            <div class="ap-card-stat">
+              <span class="ap-stat-number" style="color:#818cf8;">100%</span>
+              <span class="ap-stat-label">data privacy guaranteed</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         HOW IT WORKS (business flow, not tech)
+    ══════════════════════════════════════════ -->
+    <section class="ap-section ap-section-alt">
+      <div class="ap-container">
+        <div class="ap-section-label" data-ap-animate>How it works</div>
+        <h2 class="ap-section-h2" data-ap-animate data-delay="60">From question to<br/>resolution in three steps</h2>
+        <p class="ap-section-sub" data-ap-animate data-delay="120">No agents waiting, no ticket queues — Cartly handles the full resolution loop.</p>
+
+        <div class="ap-steps" data-ap-animate data-delay="180">
+          <div class="ap-step">
+            <div class="ap-step-num">01</div>
+            <div class="ap-step-icon" style="border-color:rgba(129,140,248,0.3);background:rgba(129,140,248,0.08);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#818cf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            </div>
+            <h3 class="ap-step-title">Customer raises a question</h3>
+            <p class="ap-step-desc">A buyer or seller asks about their order, shipment, payment, or product through the Cartly chat. Natural language — no forms.</p>
+          </div>
+
+          <div class="ap-step-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-num">02</div>
+            <div class="ap-step-icon" style="border-color:rgba(56,189,248,0.3);background:rgba(56,189,248,0.08);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M4.93 4.93a10 10 0 0 0 0 14.14"></path></svg>
+            </div>
+            <h3 class="ap-step-title">Cartly understands &amp; acts</h3>
+            <p class="ap-step-desc">The platform reads intent, looks up live order and account data, and takes the right action — approve refund, escalate delay, confirm status.</p>
+          </div>
+
+          <div class="ap-step-arrow">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+
+          <div class="ap-step">
+            <div class="ap-step-num">03</div>
+            <div class="ap-step-icon" style="border-color:rgba(52,211,153,0.3);background:rgba(52,211,153,0.08);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <h3 class="ap-step-title">Issue resolved — instantly</h3>
+            <p class="ap-step-desc">The customer receives a clear, accurate response and their issue is actioned. No waiting, no follow-up ticket needed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         FOR OPS TEAMS — Bento-style cards
+    ══════════════════════════════════════════ -->
+    <section class="ap-section" id="ops">
+      <div class="ap-container">
+        <div class="ap-section-label" data-ap-animate>For Operations Teams</div>
+        <h2 class="ap-section-h2" data-ap-animate data-delay="60">Full control over<br/>every interaction</h2>
+        <p class="ap-section-sub" data-ap-animate data-delay="120">Your ops team gets a real-time dashboard to see every resolution decision, manage escalations, and track costs — all in one place.</p>
+
+        <!-- Bento grid: 3 tall + 1 wide -->
+        <div class="ap-bento" data-ap-animate data-delay="180">
+
+          <div class="ap-bento-card ap-bento-wide">
+            <div class="ap-bento-label" style="color:#38bdf8;">Live Observability</div>
+            <h3 class="ap-bento-title">See every decision in real time</h3>
+            <p class="ap-bento-desc">Every routing decision, escalation event, and resolution outcome is logged and visible on the admin dashboard. No black boxes.</p>
+            <!-- Mini dashboard mockup -->
+            <div class="ap-bento-preview">
+              <div class="ap-bp-row ap-bp-success">
+                <span class="ap-bp-dot" style="background:#34d399;"></span>
+                <span class="ap-bp-text">Order query → answered automatically</span>
+                <span class="ap-bp-badge" style="color:#34d399;background:rgba(52,211,153,0.1);">Resolved</span>
+              </div>
+              <div class="ap-bp-row ap-bp-info">
+                <span class="ap-bp-dot" style="background:#38bdf8;"></span>
+                <span class="ap-bp-text">Shipment delay → proactive notification sent</span>
+                <span class="ap-bp-badge" style="color:#38bdf8;background:rgba(56,189,248,0.1);">Actioned</span>
+              </div>
+              <div class="ap-bp-row ap-bp-warn">
+                <span class="ap-bp-dot" style="background:#f87171;"></span>
+                <span class="ap-bp-text">Complex complaint → escalated to human agent</span>
+                <span class="ap-bp-badge" style="color:#f87171;background:rgba(248,113,113,0.1);">Escalated</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="ap-bento-card">
+            <div class="ap-bento-label" style="color:#34d399;">Cost Control</div>
+            <h3 class="ap-bento-title">Know your cost per ticket</h3>
+            <p class="ap-bento-desc">Track unit economics in real time. Guardrail alerts fire before you exceed budget — never a surprise on the invoice.</p>
+            <div class="ap-bento-metric">
+              <div class="ap-bento-big" style="color:#34d399;">70%</div>
+              <div class="ap-bento-meta">cost reduction vs. traditional support</div>
+            </div>
+          </div>
+
+          <div class="ap-bento-card">
+            <div class="ap-bento-label" style="color:#818cf8;">Human Escalation</div>
+            <h3 class="ap-bento-title">Escalate with precision</h3>
+            <p class="ap-bento-desc">Sensitive or complex cases are automatically flagged and handed to a human with full context — no re-explaining for the customer.</p>
+            <div class="ap-bento-metric">
+              <div class="ap-bento-big ap-grad-text">91%</div>
+              <div class="ap-bento-meta">resolved before reaching a human</div>
+            </div>
+          </div>
+
+          <div class="ap-bento-card">
+            <div class="ap-bento-label" style="color:#fbbf24;">Quality &amp; Safety</div>
+            <h3 class="ap-bento-title">Every response is grounded</h3>
+            <p class="ap-bento-desc">Responses are based on real order data and policy — never invented. Built-in safety checks prevent wrong refunds or false actions.</p>
+            <div class="ap-bento-metric">
+              <div class="ap-bento-big" style="color:#fbbf24;">100%</div>
+              <div class="ap-bento-meta">responses grounded in real data</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ══════════════════════════════════════════
+         CTA SECTION
+    ══════════════════════════════════════════ -->
+    <section class="ap-cta-section">
+      <div class="ap-container">
+        <div class="ap-cta-card" data-ap-animate>
+          <div class="ap-cta-glow"></div>
+          <div class="ap-cta-inner">
+            <h2 class="ap-cta-h2">Ready to try Cartly?</h2>
+            <p class="ap-cta-sub">
+              Sign in as a customer to experience instant support, or access the 
+              admin dashboard to see your operations in real time.
+            </p>
+            <div class="ap-cta-actions">
+              <a href="/" class="ap-btn-primary">Sign In</a>
+              <a href="/?signup=true" class="ap-btn-ghost">Create an Account →</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Footer -->
+    <footer class="ap-footer">
+      <div class="ap-container">
+        <div class="ap-footer-inner">
+          <div class="ap-footer-logo">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L2 22h5l5-10 5 10h5L12 2z" fill="url(#ft-g)"/>
+              <defs>
+                <linearGradient id="ft-g" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            CARTLY
+          </div>
+          <p class="ap-footer-copy">© 2024–2026 Cartly Capstone Project · All data is synthetic</p>
+          <a href="/" class="ap-footer-back">← Back to Sign In</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="/scripts/about-page.js" type="module"></script>
+  </body>
+</html>

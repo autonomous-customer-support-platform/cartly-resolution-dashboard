@@ -25,7 +25,7 @@ test.describe('Happy Paths', () => {
 
   test('User Login successful and redirects to chat', async ({ page }) => {
     await page.goto('/');
-    await page.click('button[data-target="form-user-login"]');
+    await page.click('button[data-target="form-customer"]');
     await page.evaluate(() => {
       localStorage.setItem('cartly_user_session', JSON.stringify({
         customer_id: 'test-id', first_name: 'Test', email: 'test@test.com'
@@ -136,5 +136,38 @@ test.describe('Happy Paths', () => {
     page.on('dialog', dialog => dialog.accept());
     await page.click('#btn-logout');
     await expect(page).toHaveURL('/');
+  });
+
+  test('User chat displays messages correctly after signup', async ({ page }) => {
+    // Mock the initial agent message from API
+    await page.route('**/api/v1/chat/history*', route => route.fulfill({
+      status: 200, body: JSON.stringify({ history: [{ sender: 'agent', message: 'Hi there! How can I help you today?' }] })
+    }));
+    await page.goto('/');
+    await page.click('button[data-target="form-signup"]');
+    const randomEmail = `newuser${Math.floor(Math.random()*10000)}@test.com`;
+    await page.fill('#su-first', 'Bob');
+    await page.fill('#su-last', 'Builder');
+    await page.fill('#su-email', randomEmail);
+    await page.fill('#su-password', 'securepass123');
+    await page.click('#form-signup button[type="submit"]');
+    await expect(page).toHaveURL('/chat.html');
+    await expect(page.locator('.message.agent').first()).toContainText('Hi!');
+  });
+
+  test('Admin pagination works with multiple pages of mock data', async ({ page }) => {
+    const mockRows = Array.from({ length: 25 }, (_, i) => ({ order_id: `ord-${i}`, status: 'pending' }));
+    await page.route('**/api/v1/admin/orders*', route => route.fulfill({
+      status: 200, contentType: 'application/json', body: JSON.stringify({ rows: mockRows })
+    }));
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.setItem('cartly_admin_session', JSON.stringify({ user: 'admin', token: 'mock-jwt-token-admin' }));
+    });
+    await page.goto('/dashboard.html');
+    await page.click('.nav-item[data-target="panel-orders"]');
+    await expect(page.locator('#table-orders tbody tr')).toHaveCount(15); 
+    await page.click('#next-orders');
+    await expect(page.locator('#table-orders tbody tr')).toHaveCount(10);
   });
 });
