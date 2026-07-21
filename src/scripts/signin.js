@@ -156,12 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setLoading(btn, true);
 
     const email = document.getElementById('cust-email').value.trim();
+    const password = document.getElementById('cust-password').value.trim();
 
     try {
       const res = await fetch('http://localhost:8000/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
+        body: JSON.stringify({ email: email, password: password })
       });
       
       const data = await res.json();

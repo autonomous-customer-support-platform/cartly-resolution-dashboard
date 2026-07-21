@@ -159,11 +159,12 @@ document.addEventListener('DOMContentLoaded', () => {
       spinner.classList.remove('hidden');
 
       const email = document.getElementById('ul-email').value;
+      const password = document.getElementById('ul-password').value;
 
       fetch('http://localhost:8000/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
+        body: JSON.stringify({ email: email, password: password })
       })
       .then(res => {
         if (!res.ok) return res.json().then(data => Promise.reject(data.detail));
