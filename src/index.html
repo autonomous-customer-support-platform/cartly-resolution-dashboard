@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartly — Sign In</title>
+    <meta name="description" content="Sign in to Cartly — get instant answers to your order, payment and shipping questions, or access the admin control panel." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles/global.css" />
+    <link rel="stylesheet" href="/styles/signin.css" />
+    <!-- Google Identity Services SDK -->
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+  </head>
+  <body>
+    <!-- Animated orb background -->
+    <div class="orb orb-purple"></div>
+    <div class="orb orb-cyan"></div>
+    <div class="orb orb-magenta"></div>
+    <div class="orb orb-blue"></div>
+
+    <!-- ══════════════════════════════════════════
+         SIGN-IN PAGE — Two-column layout
+    ══════════════════════════════════════════ -->
+    <div class="si-page">
+
+      <!-- ── LEFT: Value column ───────────────── -->
+      <div class="si-left">
+
+        <a href="/about.html" class="si-brand">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 22h5l5-10 5 10h5L12 2z" fill="url(#si-logo)"/>
+            <defs>
+              <linearGradient id="si-logo" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span>CARTLY</span>
+        </a>
+
+        <div class="si-left-content">
+          <!-- Live badge -->
+          <div class="si-live-badge">
+            <span class="si-live-dot"></span>
+            Support is live right now
+          </div>
+
+          <h1 class="si-headline">
+            Support that<br/>actually<br/>
+            <span class="si-headline-grad">resolves</span>
+          </h1>
+
+          <p class="si-desc">
+            Get real answers in seconds — not ticket numbers.
+            Whether it's a delayed shipment, a failed payment,
+            or a missing item, Cartly handles it instantly.
+          </p>
+
+          <!-- Use-case benefit cards -->
+          <div class="si-benefits">
+            <div class="si-benefit">
+              <div class="si-benefit-icon si-icon-cyan">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              </div>
+              <div class="si-benefit-body">
+                <div class="si-benefit-title">Instant answers, no queues</div>
+                <div class="si-benefit-sub">Ask anything about your order and get a clear answer right away.</div>
+              </div>
+            </div>
+            <div class="si-benefit">
+              <div class="si-benefit-icon si-icon-green">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+              </div>
+              <div class="si-benefit-body">
+                <div class="si-benefit-title">Live delivery tracking</div>
+                <div class="si-benefit-sub">See exactly where your package is at any moment.</div>
+              </div>
+            </div>
+            <div class="si-benefit">
+              <div class="si-benefit-icon si-icon-amber">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+              </div>
+              <div class="si-benefit-body">
+                <div class="si-benefit-title">Refunds resolved in minutes</div>
+                <div class="si-benefit-sub">Payment problems and refund requests handled automatically.</div>
+              </div>
+            </div>
+            <div class="si-benefit">
+              <div class="si-benefit-icon si-icon-purple">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+              </div>
+              <div class="si-benefit-body">
+                <div class="si-benefit-title">Available 24 / 7</div>
+                <div class="si-benefit-sub">Support that never sleeps — your issues don't keep business hours.</div>
+              </div>
+            </div>
+          </div>
+
+          <a href="/about.html" class="si-learn-more">
+            Learn how Cartly works
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- ── RIGHT: Auth card ─────────────────── -->
+      <div class="si-right">
+        <div class="si-card glass-card">
+
+          <!-- Card header -->
+          <div class="si-card-header">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2L2 22h5l5-10 5 10h5L12 2z" fill="url(#si-card-logo)"/>
+              <defs>
+                <linearGradient id="si-card-logo" x1="12" y1="2" x2="12" y2="22" gradientUnits="userSpaceOnUse">
+                  <stop stop-color="#38bdf8"/><stop offset="1" stop-color="#818cf8"/>
+                </linearGradient>
+              </defs>
+            </svg>
+            <div>
+              <div class="si-card-brand">CARTLY</div>
+              <div class="si-card-tagline">Support &amp; Resolution</div>
+            </div>
+          </div>
+
+          <!-- Tabs -->
+          <div class="si-tabs">
+            <button class="si-tab si-tab-active" data-target="form-customer" id="tab-user">Customer</button>
+            <button class="si-tab" data-target="form-signup" id="tab-signup">Sign Up</button>
+            <button class="si-tab" data-target="form-admin" id="tab-admin">Admin</button>
+          </div>
+
+          <div class="si-rule"></div>
+
+          <!-- ─ CUSTOMER LOGIN ─ -->
+          <form id="form-customer" class="si-form si-form-active">
+            <div class="si-form-top">
+              <h2 class="si-form-title">Welcome back</h2>
+              <p class="si-form-sub">Sign in to view your orders and get support</p>
+            </div>
+
+            <div id="google-btn-user" style="display: flex; justify-content: center; margin-bottom: 24px;"></div>
+            <div class="si-or">or continue with email</div>
+
+            <div class="si-field">
+              <label for="cust-email">Email</label>
+              <div class="si-input-wrap">
+                <span class="si-input-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </span>
+                <input type="email" id="cust-email" name="email" placeholder="you@example.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="si-field">
+              <label for="cust-password">Password</label>
+              <div class="si-input-wrap">
+                <span class="si-input-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="cust-password" name="password" placeholder="••••••••" required autocomplete="current-password" />
+              </div>
+            </div>
+
+            <div id="ul-error" class="si-error hidden">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              Account not found. Please sign up first.
+            </div>
+
+            <button type="submit" class="si-submit" id="btn-user-login">
+              <span class="btn-text">Sign In</span>
+              <span class="spinner hidden"></span>
+            </button>
+          </form>
+
+          <!-- ─ SIGN UP ─ -->
+          <form id="form-signup" class="si-form hidden">
+            <div class="si-form-top">
+              <h2 class="si-form-title">Create account</h2>
+              <p class="si-form-sub">Get instant support for your orders</p>
+            </div>
+
+            <div id="google-btn-signup" style="display: flex; justify-content: center; margin-bottom: 24px;"></div>
+            <div class="si-or">or sign up with email</div>
+
+            <div class="si-row">
+              <div class="si-field">
+                <label for="su-first">First name</label>
+                <input type="text" id="su-first" class="si-plain-input" placeholder="Jane" required autocomplete="given-name" />
+              </div>
+              <div class="si-field">
+                <label for="su-last">Last name</label>
+                <input type="text" id="su-last" class="si-plain-input" placeholder="Doe" required autocomplete="family-name" />
+              </div>
+            </div>
+
+            <div class="si-field">
+              <label for="su-email">Email</label>
+              <div class="si-input-wrap">
+                <span class="si-input-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                </span>
+                <input type="email" id="su-email" placeholder="you@example.com" required autocomplete="email" />
+              </div>
+            </div>
+
+            <div class="si-field">
+              <label for="su-password">Password</label>
+              <div class="si-input-wrap">
+                <span class="si-input-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="su-password" placeholder="Create a password" required autocomplete="new-password" />
+              </div>
+            </div>
+
+            <button type="submit" class="si-submit" id="btn-signup">
+              <span class="btn-text">Create Account</span>
+              <span class="spinner hidden"></span>
+            </button>
+          </form>
+
+          <!-- ─ ADMIN ─ -->
+          <form id="form-admin" class="si-form hidden">
+            <div class="si-form-top">
+              <h2 class="si-form-title">Admin access</h2>
+              <p class="si-form-sub">Sign in to the operations dashboard</p>
+            </div>
+
+            <div class="si-field">
+              <label for="admin-user">Username</label>
+              <div class="si-input-wrap">
+                <span class="si-input-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </span>
+                <input type="text" id="admin-user" placeholder="Username" required autocomplete="username" />
+              </div>
+            </div>
+
+            <div class="si-field">
+              <label for="admin-pass">Password</label>
+              <div class="si-input-wrap">
+                <span class="si-input-icon">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </span>
+                <input type="password" id="admin-pass" placeholder="Password" required autocomplete="current-password" />
+                <button type="button" class="si-pw-toggle" id="toggle-admin-pw" aria-label="Toggle password visibility">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                </button>
+              </div>
+            </div>
+
+            <div id="admin-error" class="si-error hidden">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+              Invalid credentials. Please check your username and password.
+            </div>
+
+            <button type="submit" class="si-submit si-submit-admin" id="btn-admin-login">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              <span class="btn-text">Access Dashboard</span>
+              <span class="spinner hidden"></span>
+            </button>
+          </form>
+
+          <!-- Footer hint -->
+          <div class="si-footer">
+            <span class="si-footer-dot"></span>
+            Cartly Support Platform · v2.0
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="/scripts/signin.js"></script>
+  </body>
+</html>

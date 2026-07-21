@@ -1,5 +1,11 @@
 # Cartly Support & Resolution Platform
 
+![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-Vanilla-1572B6?style=flat&logo=css3&logoColor=white)
+![Vite](https://img.shields.io/badge/Bundler-Vite-646CFF?style=flat&logo=vite&logoColor=white)
+![Playwright](https://img.shields.io/badge/Testing-Playwright-2EAD33?style=flat&logo=playwright&logoColor=white)
+
 Welcome to the **Cartly Support & Resolution Platform**, a premium, state-of-the-art autonomous customer support and resolution platform designed for monitoring cluster metrics, handling customer support chats, and managing dead-letter queue (DLQ) messages, orders, shipments, and payments.
 
 This application is built with a sleek, modern glassmorphism aesthetic using vanilla CSS and JavaScript, and powered by **Vite** for lightning-fast development and compilation.

@@ -8,7 +8,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css" />
+    <link rel="stylesheet" href="/styles/global.css" />
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
   </head>
   <body>
     <!-- Animated background orbs -->
@@ -32,15 +34,20 @@
           <h2>CARTLY</h2>
         </div>
 
-        <div class="chat-sessions">
-          <div class="session-item active">
+        <div class="chat-sessions-header" style="display: flex; justify-content: space-between; align-items: center; padding: 0 1rem; margin-bottom: 0.5rem;">
+          <h3 style="font-size: 0.75rem; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.05em; margin: 0;">Sessions</h3>
+          <button id="btn-new-chat" style="background: transparent; border: none; color: #38bdf8; cursor: pointer; display: flex; align-items: center; padding: 0.25rem;">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+          </button>
+        </div>
+        <div class="chat-sessions" id="sessions-list" style="overflow-y: auto; max-height: 50vh;">
+          <div class="session-item active" id="default-session-item">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
             Current Session
           </div>
-          <!-- Additional past sessions could be loaded here -->
         </div>
 
-        <div class="chat-user-profile">
+        <div class="chat-user-profile" style="margin-top: auto;">
           <div class="avatar" id="user-avatar">?</div>
           <div class="user-info">
             <div class="user-name" id="user-name">Loading...</div>
@@ -76,6 +83,6 @@
     <!-- Toast Container -->
     <div id="toast-container"></div>
 
-    <script type="module" src="/chat.js"></script>
+    <script type="module" src="/scripts/chat.js"></script>
   </body>
 </html>

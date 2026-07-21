@@ -12,10 +12,10 @@ test.describe('Sad Paths', () => {
 
   test('User Login fails with unregistered email', async ({ page }) => {
     await page.goto('/');
-    await page.click('button[data-target="form-user-login"]');
-    await page.fill('#ul-email', 'doesnotexist@example.com');
-    await page.fill('#ul-password', 'pass123');
-    await page.click('#form-user-login button[type="submit"]');
+    await page.click('button[data-target="form-customer"]');
+    await page.fill('#cust-email', 'doesnotexist@example.com');
+    await page.fill('#cust-password', 'pass123');
+    await page.click('#form-customer button[type="submit"]');
     await expect(page.locator('#ul-error')).not.toHaveClass(/hidden/);
   });
 
@@ -110,5 +110,44 @@ test.describe('Sad Paths', () => {
     await page.fill('#search-orders', 'not-a-uuid!!@#$');
     await page.waitForTimeout(500);
     await expect(page.locator('#table-orders')).toContainText('No records found');
+  });
+
+  test('Admin login fails gracefully on 500 API error', async ({ page }) => {
+    await page.route('**/api/v1/auth/admin*', route => route.fulfill({
+      status: 500, body: 'Internal Server Error'
+    }));
+    await page.goto('/');
+    await page.click('button[data-target="form-admin"]');
+    await page.fill('#admin-user', 'admin');
+    await page.fill('#admin-pass', 'password');
+    await page.click('#form-admin button[type="submit"]');
+    await expect(page.locator('#admin-error')).toBeVisible();
+    await expect(page.locator('#admin-error')).toContainText('Invalid credentials'); // or similar generic error handled in UI
+  });
+
+  test('User signup validation fails on bad email', async ({ page }) => {
+    await page.goto('/');
+    await page.click('button[data-target="form-signup"]');
+    await page.fill('#su-first', 'John');
+    await page.fill('#su-last', 'Doe');
+    await page.fill('#su-email', 'bademailformat');
+    await page.fill('#su-password', 'pass123');
+    await page.click('#form-signup button[type="submit"]');
+    
+    // HTML5 validation will block submission, check if field is invalid
+    const isInvalid = await page.$eval('#su-email', el => el.validity.typeMismatch);
+    expect(isInvalid).toBe(true);
+  });
+
+  test('User chat sends error toast if network fails', async ({ page }) => {
+    await page.route('**/api/v1/chat/send*', route => route.abort('failed'));
+    await page.goto('/');
+    await page.evaluate(() => {
+      localStorage.setItem('cartly_user_session', JSON.stringify({ customer_id: '123' }));
+    });
+    await page.goto('/chat.html');
+    await page.fill('#chat-input', 'This will fail');
+    await page.click('#btn-send');
+    await expect(page.locator('.toast')).toBeVisible();
   });
 });

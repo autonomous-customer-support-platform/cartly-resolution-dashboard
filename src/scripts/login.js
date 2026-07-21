@@ -102,24 +102,44 @@ document.addEventListener('DOMContentLoaded', () => {
       const lastName = document.getElementById('su-last').value;
       const email = document.getElementById('su-email').value;
 
-      setTimeout(() => {
+      fetch('http://localhost:8000/api/v1/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ first_name: firstName, last_name: lastName, email: email })
+      })
+      .then(res => {
+        if (!res.ok) return res.json().then(data => Promise.reject(data.detail));
+        return res.json();
+      })
+      .then(data => {
         text.classList.remove('hidden');
         spinner.classList.add('hidden');
-
-        // Generate a new customer ID (UUID)
-        const customerId = crypto.randomUUID();
         
         // Save user session
         localStorage.setItem('cartly_user_session', JSON.stringify({
-          customer_id: customerId,
-          email: email,
-          name: `${firstName} ${lastName}`
+          customer_id: data.customer_id,
+          email: data.email,
+          name: data.name
         }));
-
-        // Normally we would save this to the backend here, but we'll mock it for now
-        // redirect to chat
         window.location.href = '/chat.html';
-      }, 800);
+      })
+      .catch(err => {
+        text.classList.remove('hidden');
+        spinner.classList.add('hidden');
+        
+        const errElement = document.getElementById('su-error') || document.createElement('div');
+        if (!document.getElementById('su-error')) {
+            errElement.id = 'su-error';
+            errElement.className = 'login-error';
+            formSignup.insertBefore(errElement, btn);
+        }
+        errElement.textContent = err || "An error occurred during signup.";
+        errElement.classList.remove('hidden');
+        
+        loginCard.classList.remove('shake');
+        void loginCard.offsetWidth; // trigger reflow
+        loginCard.classList.add('shake');
+      });
     });
   }
 
@@ -140,26 +160,38 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const email = document.getElementById('ul-email').value;
 
-      setTimeout(() => {
+      fetch('http://localhost:8000/api/v1/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: email })
+      })
+      .then(res => {
+        if (!res.ok) return res.json().then(data => Promise.reject(data.detail));
+        return res.json();
+      })
+      .then(data => {
         text.classList.remove('hidden');
         spinner.classList.add('hidden');
-
-        // Check if there's a stored user session that matches this email
-        const stored = localStorage.getItem('cartly_user_session');
-        if (stored) {
-          const userData = JSON.parse(stored);
-          if (userData.email === email) {
-            window.location.href = '/chat.html';
-            return;
-          }
-        }
-
-        // If not found, show error
+        
+        // Save user session
+        localStorage.setItem('cartly_user_session', JSON.stringify({
+          customer_id: data.customer_id,
+          email: data.email,
+          name: data.name
+        }));
+        window.location.href = '/chat.html';
+      })
+      .catch(err => {
+        text.classList.remove('hidden');
+        spinner.classList.add('hidden');
+        
+        errUser.textContent = err || "Invalid login credentials.";
         errUser.classList.remove('hidden');
+        
         loginCard.classList.remove('shake');
         void loginCard.offsetWidth; // trigger reflow
         loginCard.classList.add('shake');
-      }, 800);
+      });
     });
   }
 
@@ -169,6 +201,45 @@ document.addEventListener('DOMContentLoaded', () => {
       loginCard.classList.remove('shake');
     }
   });
+
+  // Google Sign-In Buttons (UI demo — OAuth not wired)
+  const googleButtons = document.querySelectorAll('.btn-google');
+  googleButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      // Show a friendly toast — Google OAuth integration pending
+      showSigninToast('Google Sign-In is coming soon! Use email credentials for now.');
+    });
+  });
+
+  function showSigninToast(msg) {
+    const existing = document.querySelector('.signin-toast');
+    if (existing) existing.remove();
+
+    const toast = document.createElement('div');
+    toast.className = 'signin-toast';
+    toast.style.cssText = `
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(20, 20, 35, 0.95);
+      border: 1px solid rgba(129, 140, 248, 0.35);
+      border-radius: 12px;
+      padding: 12px 20px;
+      color: #94a3b8;
+      font-size: 13px;
+      font-family: 'Inter', sans-serif;
+      z-index: 9999;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+      animation: card-in 0.3s cubic-bezier(0.16,1,0.3,1);
+      max-width: 380px;
+      text-align: center;
+    `;
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 4000);
+  }
 
   // Redirect if already logged in (depending on hash or previous visit)
   // We won't auto-redirect here so the user can freely choose which flow to test.
