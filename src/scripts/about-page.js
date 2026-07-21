@@ -39,12 +39,13 @@ function animateCount(el, end, suffix = '', duration = 1200) {
 }
 
 // ── Live stat hydration ────────────────────────────────────────
-const API = 'http://localhost:8000/api/v1';
+const API = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const AUTH_HEADER = import.meta.env.VITE_API_TOKEN ? { "Authorization": `Bearer ${import.meta.env.VITE_API_TOKEN}` } : {};
 
 async function loadStats() {
   let interactions = 5412, resolved = 4925;
   try {
-    const r = await fetch(`${API}/interactions?limit=1`, { signal: AbortSignal.timeout(2000) });
+    const r = await fetch(`${API}/interactions?limit=1`, { signal: AbortSignal.timeout(2000), headers: { ...AUTH_HEADER } });
     if (r.ok) {
       const d = await r.json();
       if (Array.isArray(d) && d.length) {

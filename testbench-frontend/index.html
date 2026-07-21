@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cartly Agent Terminal</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <!-- Setup Screen -->
+      <div id="setup-screen" class="screen active">
+        <h1>Cartly Services Terminal</h1>
+        <div class="form-group">
+          <label for="customer-id">Customer ID:</label>
+          <input type="text" id="customer-id" placeholder="e.g. CUST-123" />
+        </div>
+        <div class="form-group">
+          <button id="btn-fetch-sessions">Fetch Sessions</button>
+        </div>
+        <div class="form-group">
+          <label for="session-select">Select Session:</label>
+          <select id="session-select">
+            <option value="">-- Start New Session --</option>
+          </select>
+        </div>
+        <button id="btn-start-chat" class="primary-btn">Start Chat</button>
+      </div>
+
+      <!-- Chat Screen -->
+      <div id="chat-screen" class="screen">
+        <div class="header">
+          <h2>Terminal / Session: <span id="display-session"></span></h2>
+          <button id="btn-back">End Session</button>
+        </div>
+
+        <div class="main-layout">
+          <div class="chat-container">
+            <div id="chat-history" class="chat-history"></div>
+            
+            <div class="example-prompts">
+              <button class="example-btn" data-text="Where is my order?">Track Order</button>
+              <button class="example-btn" data-text="I want to cancel my last order">Cancel Order</button>
+              <button class="example-btn" data-text="I have an issue with my billing statement">Billing Issue</button>
+            </div>
+
+            <div class="input-area">
+              <span class="prompt-symbol">&gt;</span>
+              <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off" />
+              <button id="btn-send">Send</button>
+            </div>
+          </div>
+
+          <div class="sidebar">
+            <div class="notifications-panel">
+              <h3>Live Notifications</h3>
+              <div id="notifications-list"></div>
+            </div>
+            <div class="mock-triggers">
+              <h3>Mock Triggers</h3>
+              <div class="trigger-form">
+                <select id="payment-event-type">
+                  <option value="PAYMENT_FAILED">Payment Failed</option>
+                  <option value="REFUND_INITIATED">Refund Initiated</option>
+                  <option value="REFUND_COMPLETED">Refund Completed</option>
+                </select>
+                <input type="text" id="payment-msg-id" placeholder="Optional Payment ID (UUID)" class="small-input"/>
+                <button id="btn-trigger-payment" class="trigger-btn">Trigger Payment Event</button>
+              </div>
+              <div class="trigger-form">
+                <select id="shipping-event-type">
+                  <option value="SHIPMENT_DELAYED">Shipment Delayed</option>
+                  <option value="DELIVERED">Delivered</option>
+                  <option value="OUT_FOR_DELIVERY">Out for Delivery</option>
+                </select>
+                <input type="text" id="shipping-msg-id" placeholder="Optional Shipment ID (UUID)" class="small-input"/>
+                <button id="btn-trigger-shipping" class="trigger-btn">Trigger Shipping Event</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

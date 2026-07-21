@@ -63,6 +63,31 @@
       <main class="chat-main">
         <div class="chat-topbar">
           <h2>Customer Support</h2>
+          <div class="topbar-controls">
+            <div class="custom-dropdown" id="lang-selector">
+              <button class="lang-dropdown" id="lang-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
+                <span>🇺🇸 English [US]</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </button>
+              <ul class="dropdown-menu" id="lang-dropdown-menu" role="listbox" hidden>
+                <li class="dropdown-item" role="option" data-value="en">🇺🇸 English [US]</li>
+                <li class="dropdown-item" role="option" data-value="es">🇪🇸 Español [ES]</li>
+                <li class="dropdown-item" role="option" data-value="fr">🇫🇷 Français [FR]</li>
+                <li class="dropdown-item" role="option" data-value="de">🇩🇪 Deutsch [DE]</li>
+                <li class="dropdown-item" role="option" data-value="it">🇮🇹 Italiano [IT]</li>
+                <li class="dropdown-item" role="option" data-value="ja">🇯🇵 日本語 [JP]</li>
+                <li class="dropdown-item" role="option" data-value="zh">🇨🇳 中文 [CN]</li>
+                <li class="dropdown-item" role="option" data-value="hi">🇮🇳 हिन्दी [IN]</li>
+                <li class="dropdown-item" role="option" data-value="bn">🇮🇳 বাংলা [IN]</li>
+                <li class="dropdown-item" role="option" data-value="te">🇮🇳 తెలుగు [IN]</li>
+                <li class="dropdown-item" role="option" data-value="mr">🇮🇳 मराठी [IN]</li>
+                <li class="dropdown-item" role="option" data-value="ta">🇮🇳 தமிழ் [IN]</li>
+              </ul>
+            </div>
+            <button id="theme-toggle" class="btn-icon-round" aria-label="Toggle Dark Mode">
+              <!-- Sun / Moon icon will be set by JS -->
+            </button>
+          </div>
         </div>
         
         <div class="chat-messages" id="chat-history">
@@ -84,5 +109,6 @@
     <div id="toast-container"></div>
 
     <script type="module" src="/scripts/chat.js"></script>
+    <script type="module" src="/scripts/preferences.js"></script>
   </body>
 </html>

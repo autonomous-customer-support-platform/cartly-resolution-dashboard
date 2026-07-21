@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/ingestion/:match*",
+      "destination": "http://34.55.48.151/ingestion/:match*"
+    }
+  ]
+}

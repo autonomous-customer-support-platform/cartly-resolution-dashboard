@@ -3,6 +3,7 @@
 
 const SESSION_KEY = 'cartly_admin_session';
 const API = import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1';
+const AUTH_HEADER = import.meta.env.VITE_API_TOKEN ? { "Authorization": `Bearer ${import.meta.env.VITE_API_TOKEN}` } : {};
 const PAGE_SIZE = 15;
 
 // ── Auth Guard ────────────────────────────────────────────────
@@ -99,7 +100,7 @@ function showToast(msg, type = 'info') {
 
 // ── API Fetch ─────────────────────────────────────────────────
 async function fetchAPI(path) {
-  const res = await fetch(`${API}${path}`);
+  const res = await fetch(`${API}${path}`, { headers: { ...AUTH_HEADER } });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
   return res.json();
 }
@@ -564,7 +565,7 @@ $('form-trigger').addEventListener('submit', async (e) => {
     const endpoint = triggerType === 'payment' ? '/test/payment-event' : '/test/shipment-event';
     const res = await fetch(`${API}${endpoint}`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', ...AUTH_HEADER },
       body: JSON.stringify({ customer_id: customerId, event_type: eventType }),
     });
     
@@ -703,3 +704,164 @@ document.querySelectorAll('.nav-item').forEach(btn => {
 
 // ── Initial Load ──────────────────────────────────────────────
 switchPanel('overview');
+
+// ══════════════════════════════════════════════════════════════
+// Theme logic is handled by preferences.js
+
+// ══════════════════════════════════════════════════════════════
+// MULTILINGUAL SUPPORT (i18n)
+// ══════════════════════════════════════════════════════════════
+const LANG_KEY = 'language';
+
+const TRANSLATIONS = {
+  en: {
+    nav_overview: 'Overview', nav_orders: 'Orders', nav_shipments: 'Shipments',
+    nav_payments: 'Payments', nav_customers: 'Customers', nav_interactions: 'Interactions',
+    nav_routing: 'Routing', nav_dlq: 'Dead Letter Queue', nav_about: 'About',
+    section_overview: 'Overview', section_tables: 'Tables', section_audit: 'Agent Audit', section_platform: 'Platform',
+    panel_title_overview: 'System Overview', panel_sub_overview: 'Live cluster metrics from Cassandra',
+    btn_refresh: 'Refresh', live_label: 'Live',
+    user_name: 'Admin', user_role: 'Super Admin',
+    label_resolved: 'Resolved today', label_interactions: 'Interactions',
+    label_rate: 'Resolution rate', label_time: 'Avg. resolution',
+    panel_title_orders: 'Orders', card_order_directory: 'Order Directory', search_orders: 'Search by Order ID or Customer ID...', filter_all_statuses: 'All Statuses', th_order_id: 'ORDER ID', th_customer_id: 'CUSTOMER ID', th_status: 'STATUS', th_amount: 'AMOUNT', th_date: 'DATE',
+  },
+  es: {
+    nav_overview: 'Resumen', nav_orders: 'Pedidos', nav_shipments: 'Envíos',
+    nav_payments: 'Pagos', nav_customers: 'Clientes', nav_interactions: 'Interacciones',
+    nav_routing: 'Enrutamiento', nav_dlq: 'Cola de Mensajes Fallidos', nav_about: 'Acerca de',
+    section_overview: 'Resumen', section_tables: 'Tablas', section_audit: 'Auditoría de Agente', section_platform: 'Plataforma',
+    panel_title_overview: 'Resumen del Sistema', panel_sub_overview: 'Métricas en vivo de Cassandra',
+    btn_refresh: 'Actualizar', live_label: 'En Vivo',
+    user_name: 'Admin', user_role: 'Super Admin',
+    label_resolved: 'Resueltos hoy', label_interactions: 'Interacciones',
+    label_rate: 'Tasa de resolución', label_time: 'Resolución promedio',
+    panel_title_orders: 'Pedidos', card_order_directory: 'Directorio de Pedidos', search_orders: 'Buscar por ID de Pedido o ID de Cliente...', filter_all_statuses: 'Todos los estados', th_order_id: 'ID DEL PEDIDO', th_customer_id: 'ID DEL CLIENTE', th_status: 'ESTADO', th_amount: 'MONTO', th_date: 'FECHA',
+  },
+  fr: {
+    nav_overview: 'Aperçu', nav_orders: 'Commandes', nav_shipments: 'Expéditions',
+    nav_payments: 'Paiements', nav_customers: 'Clients', nav_interactions: 'Interactions',
+    nav_routing: 'Routage', nav_dlq: 'File de Messages Morts', nav_about: 'À propos',
+    section_overview: 'Aperçu', section_tables: 'Tableaux', section_audit: "Audit de l'Agent", section_platform: 'Plateforme',
+    panel_title_overview: 'Aperçu du système', panel_sub_overview: 'Métriques en direct de Cassandra',
+    btn_refresh: 'Rafraîchir', live_label: 'En direct',
+    user_name: 'Admin', user_role: 'Super Admin',
+    label_resolved: "Résolus aujourd'hui", label_interactions: 'Interactions',
+    label_rate: 'Taux de résolution', label_time: 'Résolution moyenne',
+    panel_title_orders: 'Commandes', card_order_directory: 'Répertoire des Commandes', search_orders: 'Rechercher par ID de commande ou ID client...', filter_all_statuses: 'Tous les statuts', th_order_id: 'ID COMMANDE', th_customer_id: 'ID CLIENT', th_status: 'STATUT', th_amount: 'MONTANT', th_date: 'DATE',
+  },
+  de: {
+    nav_overview: 'Übersicht', nav_orders: 'Bestellungen', nav_shipments: 'Sendungen',
+    nav_payments: 'Zahlungen', nav_customers: 'Kunden', nav_interactions: 'Interaktionen',
+    nav_routing: 'Weiterleitung', nav_dlq: 'Toter Briefkasten', nav_about: 'Über',
+    section_overview: 'Übersicht', section_tables: 'Tabellen', section_audit: 'Agent-Audit', section_platform: 'Plattform',
+    panel_title_overview: 'Systemübersicht', panel_sub_overview: 'Live-Metriken von Cassandra',
+    btn_refresh: 'Aktualisieren', live_label: 'Live',
+    user_name: 'Admin', user_role: 'Super Admin',
+    label_resolved: 'Heute gelöst', label_interactions: 'Interaktionen',
+    label_rate: 'Lösungsrate', label_time: 'Ø Lösungszeit',
+    panel_title_orders: 'Bestellungen', card_order_directory: 'Bestellverzeichnis', search_orders: 'Suche nach Bestell-ID oder Kunden-ID...', filter_all_statuses: 'Alle Status', th_order_id: 'BESTELL-ID', th_customer_id: 'KUNDEN-ID', th_status: 'STATUS', th_amount: 'BETRAG', th_date: 'DATUM',
+  },
+  hi: {
+    nav_overview: 'सारांश', nav_orders: 'ऑर्डर', nav_shipments: 'शिपमेंट',
+    nav_payments: 'भुगतान', nav_customers: 'ग्राहक', nav_interactions: 'इंटरेक्शन',
+    nav_routing: 'रूटिंग', nav_dlq: 'डेड लेटर क्यू', nav_about: 'जानकारी',
+    section_overview: 'सारांश', section_tables: 'तालिकाएँ', section_audit: 'एजेंट ऑडिट', section_platform: 'प्लेटफ़ॉर्म',
+    panel_title_overview: 'सिस्टम सारांश', panel_sub_overview: 'Cassandra से लाइव मेट्रिक्स',
+    btn_refresh: 'रीफ्रेश', live_label: 'लाइव',
+    user_name: 'Admin', user_role: 'सुपर एडमिन',
+    label_resolved: 'आज हल हुए', label_interactions: 'इंटरेक्शन',
+    label_rate: 'समाधान दर', label_time: 'औसत समाधान',
+    panel_title_orders: 'ऑर्डर', card_order_directory: 'ऑर्डर निर्देशिका', search_orders: 'ऑर्डर आईडी या ग्राहक आईडी द्वारा खोजें...', filter_all_statuses: 'सभी स्थितियाँ', th_order_id: 'ऑर्डर आईडी', th_customer_id: 'ग्राहक आईडी', th_status: 'स्थिति', th_amount: 'राशि', th_date: 'तारीख',
+  },
+  ja: {
+    nav_overview: '概要', nav_orders: '注文', nav_shipments: '配送',
+    nav_payments: '支払い', nav_customers: '顧客', nav_interactions: 'インタラクション',
+    nav_routing: 'ルーティング', nav_dlq: 'デッドレターキュー', nav_about: '概要',
+    section_overview: '概要', section_tables: 'テーブル', section_audit: 'エージェント監査', section_platform: 'プラットフォーム',
+    panel_title_overview: 'システム概要', panel_sub_overview: 'Cassandraのライブメトリクス',
+    btn_refresh: '更新', live_label: 'ライブ',
+    user_name: 'Admin', user_role: 'スーパー管理者',
+    label_resolved: '今日解決済み', label_interactions: 'インタラクション',
+    label_rate: '解決率', label_time: '平均解決時間',
+    panel_title_orders: '注文', card_order_directory: '注文ディレクトリ', search_orders: '注文IDまたは顧客IDで検索...', filter_all_statuses: 'すべてのステータス', th_order_id: '注文ID', th_customer_id: '顧客ID', th_status: 'ステータス', th_amount: '金額', th_date: '日付',
+  },
+  zh: {
+    nav_overview: '概览', nav_orders: '订单', nav_shipments: '发货',
+    nav_payments: '付款', nav_customers: '客户', nav_interactions: '交互',
+    nav_routing: '路由', nav_dlq: '死信队列', nav_about: '关于',
+    section_overview: '概览', section_tables: '表格', section_audit: '代理审计', section_platform: '平台',
+    panel_title_overview: '系统概览', panel_sub_overview: '来自 Cassandra 的实时指标',
+    btn_refresh: '刷新', live_label: '直播',
+    user_name: 'Admin', user_role: '超级管理员',
+    label_resolved: '今日已解决', label_interactions: '互动',
+    label_rate: '解决率', label_time: '平均解决时间',
+    panel_title_orders: '订单', card_order_directory: '订单目录', search_orders: '按订单 ID 或客户 ID 搜索...', filter_all_statuses: '所有状态', th_order_id: '订单 ID', th_customer_id: '客户 ID', th_status: '状态', th_amount: '金额', th_date: '日期',
+  },
+};
+
+// Map of translation key -> CSS selector or element getter
+const I18N_MAP = [
+  { key: 'nav_overview',    sel: '.nav-item[data-target="panel-overview"] span' },
+  { key: 'nav_orders',      sel: '.nav-item[data-target="panel-orders"] span:first-of-type' },
+  { key: 'nav_shipments',   sel: '.nav-item[data-target="panel-shipments"] span:first-of-type' },
+  { key: 'nav_payments',    sel: '.nav-item[data-target="panel-payments"] span:first-of-type' },
+  { key: 'nav_customers',   sel: '.nav-item[data-target="panel-customers"] span:first-of-type' },
+  { key: 'nav_interactions',sel: '.nav-item[data-target="panel-interactions"] span:first-of-type' },
+  { key: 'nav_routing',     sel: '.nav-item[data-target="panel-routing"] span:first-of-type' },
+  { key: 'nav_dlq',         sel: '.nav-item[data-target="panel-dlq"] span:first-of-type' },
+  { key: 'nav_about',       sel: '.nav-item[data-target="panel-about"] span' },
+  { key: 'panel_title_overview', sel: '#panel-overview .panel-title' },
+  { key: 'panel_sub_overview',   sel: '#panel-overview .panel-subtitle' },
+  { key: 'btn_refresh',     sel: '#btn-refresh-overview' },
+  { key: 'live_label',      sel: '.live-indicator' },
+  { key: 'user_name',       sel: '.sidebar-user-name' },
+  { key: 'user_role',       sel: '.sidebar-user-role' },
+  { key: 'label_resolved',  sel: '#ov-resolved + .db-preview-label', parent: true },
+  { key: 'label_interactions', sel: '#ov-interactions + .db-preview-label', parent: true },
+  { key: 'label_rate',      sel: '#ov-rate + .db-preview-label', parent: true },
+  { key: 'label_time',      sel: '#ov-time + .db-preview-label', parent: true },
+  { key: 'panel_title_orders', sel: '#panel-orders .panel-title' },
+  { key: 'card_order_directory', sel: '#panel-orders .card-header h3' },
+  { key: 'search_orders', sel: '#search-orders', attr: 'placeholder' },
+  { key: 'filter_all_statuses', sel: '#filter-orders-status option[value=""]' },
+  { key: 'th_order_id', sel: '#panel-orders th:nth-child(1)' },
+  { key: 'th_customer_id', sel: '#panel-orders th:nth-child(2)' },
+  { key: 'th_status', sel: '#panel-orders th:nth-child(3)' },
+  { key: 'th_amount', sel: '#panel-orders th:nth-child(4)' },
+  { key: 'th_date', sel: '#panel-orders th:nth-child(5)' },
+];
+
+function applyLanguage(lang) {
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  I18N_MAP.forEach(({ key, sel, attr }) => {
+    const el = document.querySelector(sel);
+    if (el && t[key]) {
+      // For 'Refresh' button, preserve icon SVG
+      if (key === 'btn_refresh') {
+        const icon = el.querySelector('svg');
+        el.innerHTML = '';
+        if (icon) el.appendChild(icon);
+        el.appendChild(document.createTextNode(' ' + t[key]));
+      } else if (key === 'live_label') {
+        const dot = el.querySelector('.dot');
+        el.innerHTML = '';
+        if (dot) el.appendChild(dot);
+        el.appendChild(document.createTextNode(' ' + t[key]));
+      } else if (attr) {
+        el.setAttribute(attr, t[key]);
+      } else {
+        el.textContent = t[key];
+      }
+    }
+  });
+  document.documentElement.lang = lang;
+  localStorage.setItem(LANG_KEY, lang);
+}
+
+// Load saved language or default to en
+const savedLang = localStorage.getItem(LANG_KEY) || 'en';
+// Listen for language changes from preferences.js
+document.addEventListener('langChanged', (e) => applyLanguage(e.detail));
+applyLanguage(savedLang);
+

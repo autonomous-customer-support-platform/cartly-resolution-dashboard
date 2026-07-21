@@ -6,6 +6,7 @@
 ![Vite](https://img.shields.io/badge/Bundler-Vite-646CFF?style=flat&logo=vite&logoColor=white)
 ![Playwright](https://img.shields.io/badge/Testing-Playwright-2EAD33?style=flat&logo=playwright&logoColor=white)
 
+
 Welcome to the **Cartly Support & Resolution Platform**, a premium, state-of-the-art autonomous customer support and resolution platform designed for monitoring cluster metrics, handling customer support chats, and managing dead-letter queue (DLQ) messages, orders, shipments, and payments.
 
 This application is built with a sleek, modern glassmorphism aesthetic using vanilla CSS and JavaScript, and powered by **Vite** for lightning-fast development and compilation.
@@ -19,6 +20,38 @@ This application is built with a sleek, modern glassmorphism aesthetic using van
 - **Order & Payment Directories**: Dynamic tables with pagination, query searches, and status filtering.
 - **Redesigned Record Details**: Clicking a row opens a beautifully structures Card Grid layout modal instead of raw, hard-to-read JSON blocks.
 - **Robust E2E Test Suite**: Fully automated test workflows using Playwright.
+- **Responsive Layout**: Adapts gracefully to all screen sizes.
+- **Dark/Light Mode**: Full theme support with premium UI and high contrast visibility.
+- **Localization**: Built-in multi-language support (English, Spanish, French, German, Japanese, Chinese, Hindi, etc).
+- **Real-time LLM Translation**: Live translation of LLM chat responses based on the selected language.
+
+
+---
+
+## Live Demo 
+
+**Deployed Application:** [https://cartly-resolution-dashboard.vercel.app/](https://cartly-resolution-dashboard.vercel.app/)
+
+
+## Screenshots
+
+### Admin Dashboard (Dark Mode)
+![Admin Dashboard Dark Mode](./src/assets/dashboard.png)
+
+### Admin Dashboard (Light Mode)
+![Admin Dashboard Light Mode](./src/assets/dashboard_light_mode.png)
+
+### Support Chat Interface
+![Support Chat](./src/assets/chat.png)
+
+### Sign In Page (Dark Mode)
+![Sign In Dark Mode](./src/assets/home.png)
+
+### Sign In Page (Light Mode)
+![Sign In Light Mode](./src/assets/home_light_mode.png)
+
+### Sign In Page (Hindi Localization)
+![Sign In Hindi](./src/assets/home_hindi.png)
 
 ---
 
@@ -32,7 +65,7 @@ Make sure you have [Node.js](https://nodejs.org/) installed (v18 or higher is re
 
 1. Clone or navigate to the directory of the project:
    ```bash
-   cd aurora-dashboard
+   cd cartly-resolution-dashboard
    ```
 
 2. Install the project dependencies:
@@ -65,6 +98,18 @@ This starts the dev server at [http://localhost:5174](http://localhost:5174) (or
 
 - **Customer Signup/Login**:
   - Sign up with any valid email and password to access the support chat console.
+
+### Running the Test Frontends
+
+This repository also contains a test frontend for testing isolated features.
+
+**Testbench Frontend** (`testbench-frontend/`)
+To run this test environment:
+```bash
+cd testbench-frontend
+npm install
+npm run dev
+```
 
 ---
 

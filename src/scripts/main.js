@@ -1,10 +1,11 @@
-const API_BASE = "http://localhost:8000/api/v1/admin";
+const API_BASE = (import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1') + '/admin';
+const AUTH_HEADER = import.meta.env.VITE_API_TOKEN ? { "Authorization": `Bearer ${import.meta.env.VITE_API_TOKEN}` } : {};
 
 async function fetchData() {
   try {
     const [statsRes, interactionsRes] = await Promise.all([
-      fetch(`${API_BASE}/stats`),
-      fetch(`${API_BASE}/interactions`)
+      fetch(`${API_BASE}/stats`, { headers: { ...AUTH_HEADER } }),
+      fetch(`${API_BASE}/interactions`, { headers: { ...AUTH_HEADER } })
     ]);
 
     const stats = await statsRes.json();

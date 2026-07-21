@@ -102,9 +102,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const lastName = document.getElementById('su-last').value;
       const email = document.getElementById('su-email').value;
 
-      fetch('http://localhost:8000/api/v1/auth/signup', {
+      const authHeader = import.meta.env.VITE_API_TOKEN ? { "Authorization": `Bearer ${import.meta.env.VITE_API_TOKEN}` } : {};
+      fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1') + '/auth/signup', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', ...authHeader },
         body: JSON.stringify({ first_name: firstName, last_name: lastName, email: email })
       })
       .then(res => {
@@ -159,11 +160,13 @@ document.addEventListener('DOMContentLoaded', () => {
       spinner.classList.remove('hidden');
 
       const email = document.getElementById('ul-email').value;
+      const password = document.getElementById('ul-password').value;
 
-      fetch('http://localhost:8000/api/v1/auth/login', {
+      const authHeader = import.meta.env.VITE_API_TOKEN ? { "Authorization": `Bearer ${import.meta.env.VITE_API_TOKEN}` } : {};
+      fetch((import.meta.env.VITE_API_URL || 'http://localhost:8000/api/v1') + '/auth/login', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
+        headers: { 'Content-Type': 'application/json', ...authHeader },
+        body: JSON.stringify({ email: email, password: password })
       })
       .then(res => {
         if (!res.ok) return res.json().then(data => Promise.reject(data.detail));
