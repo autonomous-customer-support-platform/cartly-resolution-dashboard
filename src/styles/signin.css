@@ -28,7 +28,7 @@
   top: 10%;
   bottom: 10%;
   width: 1px;
-  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.07), transparent);
+  background: linear-gradient(to bottom, transparent, var(--border-light), transparent);
 }
 
 .si-brand {
@@ -64,8 +64,8 @@
   gap: 8px;
   font-size: 12px;
   font-weight: 600;
-  color: rgba(52,211,153,0.9);
-  background: rgba(52,211,153,0.07);
+  color: var(--badge-text);
+  background: var(--badge-bg);
   border: 1px solid rgba(52,211,153,0.2);
   border-radius: 20px;
   padding: 6px 14px;
@@ -92,7 +92,7 @@
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -1px;
-  color: #fff;
+  color: var(--text-1);
   margin: 0;
 }
 
@@ -106,7 +106,7 @@
 /* Description */
 .si-desc {
   font-size: 16px;
-  color: rgba(255,255,255,0.5);
+  color: var(--text-3);
   line-height: 1.7;
   margin: 0;
   max-width: 460px;
@@ -124,10 +124,10 @@
   align-items: flex-start;
   gap: 14px;
   padding: 16px 0;
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  border-bottom: 1px solid var(--surface);
   transition: background 0.2s;
 }
-.si-benefit:first-child { border-top: 1px solid rgba(255,255,255,0.04); }
+.si-benefit:first-child { border-top: 1px solid var(--surface); }
 
 .si-benefit-icon {
   width: 34px;
@@ -142,7 +142,7 @@
 .si-icon-cyan   { color: #38bdf8; background: rgba(56,189,248,0.1);  border-color: rgba(56,189,248,0.2); }
 .si-icon-green  { color: #34d399; background: rgba(52,211,153,0.1);  border-color: rgba(52,211,153,0.2); }
 .si-icon-amber  { color: #fbbf24; background: rgba(251,191,36,0.1);  border-color: rgba(251,191,36,0.2); }
-.si-icon-purple { color: #818cf8; background: rgba(129,140,248,0.1); border-color: rgba(129,140,248,0.2); }
+.si-icon-purple { color: var(--link-hover); background: rgba(129,140,248,0.1); border-color: rgba(129,140,248,0.2); }
 
 .si-benefit-body {
   display: flex;
@@ -153,11 +153,11 @@
 .si-benefit-title {
   font-size: 14px;
   font-weight: 600;
-  color: rgba(255,255,255,0.9);
+  color: var(--text-1);
 }
 .si-benefit-sub {
   font-size: 13px;
-  color: rgba(255,255,255,0.4);
+  color: var(--text-3);
   line-height: 1.5;
 }
 
@@ -168,13 +168,13 @@
   gap: 6px;
   font-size: 13px;
   font-weight: 500;
-  color: rgba(129,140,248,0.8);
+  color: var(--link-color);
   text-decoration: none;
   transition: color 0.2s, gap 0.2s;
   width: fit-content;
 }
 .si-learn-more:hover {
-  color: #818cf8;
+  color: var(--link-hover);
   gap: 10px;
 }
 
@@ -221,7 +221,7 @@
 }
 .si-card-tagline {
   font-size: 11px;
-  color: rgba(255,255,255,0.35);
+  color: var(--text-3);
   letter-spacing: 0.3px;
   margin-top: 2px;
 }
@@ -231,8 +231,8 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 4px;
-  background: rgba(0,0,0,0.2);
-  border: 1px solid rgba(255,255,255,0.07);
+  background: var(--input-bg);
+  border: 1px solid var(--border-light);
   border-radius: 10px;
   padding: 4px;
   margin-bottom: 20px;
@@ -241,7 +241,7 @@
 .si-tab {
   font-size: 13px;
   font-weight: 500;
-  color: rgba(255,255,255,0.45);
+  color: var(--text-3);
   background: transparent;
   border: none;
   border-radius: 7px;
@@ -253,18 +253,18 @@
 }
 .si-tab-active {
   background: rgba(129,140,248,0.2);
-  color: #fff;
+  color: var(--text-1);
   font-weight: 600;
 }
 .si-tab:hover:not(.si-tab-active) {
-  color: rgba(255,255,255,0.7);
-  background: rgba(255,255,255,0.04);
+  color: var(--text-2);
+  background: var(--surface);
 }
 
 /* Divider */
 .si-rule {
   height: 1px;
-  background: rgba(255,255,255,0.07);
+  background: var(--border-light);
   margin-bottom: 20px;
 }
 
@@ -285,13 +285,13 @@
 .si-form-title {
   font-size: 19px;
   font-weight: 700;
-  color: #fff;
+  color: var(--text-1);
   margin: 0;
 }
 
 .si-form-sub {
   font-size: 13px;
-  color: rgba(255,255,255,0.4);
+  color: var(--text-3);
   margin: 0;
 }
 
@@ -302,10 +302,10 @@
   align-items: center;
   justify-content: center;
   gap: 10px;
-  background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--surface);
+  border: 1px solid var(--border);
   border-radius: 10px;
-  color: rgba(255,255,255,0.85);
+  color: var(--text-1);
   font-size: 14px;
   font-weight: 500;
   font-family: inherit;
@@ -314,8 +314,8 @@
   transition: background 0.2s, border-color 0.2s, transform 0.15s;
 }
 .si-google-btn:hover {
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(255,255,255,0.18);
+  background: var(--surface-hover);
+  border-color: var(--border);
   transform: translateY(-1px);
 }
 .si-google-btn:active { transform: translateY(0); }
@@ -326,7 +326,7 @@
   align-items: center;
   gap: 10px;
   font-size: 11px;
-  color: rgba(255,255,255,0.3);
+  color: var(--text-3);
   letter-spacing: 0.3px;
 }
 .si-or::before,
@@ -334,7 +334,7 @@
   content: '';
   flex: 1;
   height: 1px;
-  background: rgba(255,255,255,0.07);
+  background: var(--border-light);
 }
 
 /* Form field */
@@ -346,7 +346,7 @@
 .si-field label {
   font-size: 12px;
   font-weight: 500;
-  color: rgba(255,255,255,0.5);
+  color: var(--text-3);
 }
 
 /* Input with icon */
@@ -358,7 +358,7 @@
 .si-input-icon {
   position: absolute;
   left: 12px;
-  color: rgba(255,255,255,0.3);
+  color: var(--text-3);
   pointer-events: none;
   display: flex;
   align-items: center;
@@ -366,11 +366,11 @@
 
 .si-input-wrap input {
   width: 100%;
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--input-bg);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 11px 12px 11px 38px;
-  color: rgba(255,255,255,0.9);
+  color: var(--text-1);
   font-size: 14px;
   font-family: inherit;
   outline: none;
@@ -380,16 +380,16 @@
   border-color: rgba(129,140,248,0.5);
   box-shadow: 0 0 0 3px rgba(129,140,248,0.12);
 }
-.si-input-wrap input::placeholder { color: rgba(255,255,255,0.2); }
+.si-input-wrap input::placeholder { color: var(--text-3); }
 
 /* Plain input (no icon, e.g. name row) */
 .si-plain-input {
   width: 100%;
-  background: rgba(0,0,0,0.25);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: var(--input-bg);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 11px 12px;
-  color: rgba(255,255,255,0.9);
+  color: var(--text-1);
   font-size: 14px;
   font-family: inherit;
   outline: none;
@@ -400,7 +400,7 @@
   border-color: rgba(129,140,248,0.5);
   box-shadow: 0 0 0 3px rgba(129,140,248,0.12);
 }
-.si-plain-input::placeholder { color: rgba(255,255,255,0.2); }
+.si-plain-input::placeholder { color: var(--text-3); }
 
 /* Name row */
 .si-row {
@@ -416,13 +416,13 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: rgba(255,255,255,0.3);
+  color: var(--text-3);
   padding: 4px;
   display: flex;
   align-items: center;
   transition: color 0.2s;
 }
-.si-pw-toggle:hover { color: rgba(255,255,255,0.7); }
+.si-pw-toggle:hover { color: var(--text-2); }
 
 /* Error */
 .si-error {
@@ -447,7 +447,7 @@
   background: linear-gradient(135deg, #818cf8, #6366f1);
   border: none;
   border-radius: 10px;
-  color: #fff;
+  color: var(--text-1);
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
@@ -479,9 +479,9 @@
   gap: 8px;
   margin-top: 20px;
   font-size: 11px;
-  color: rgba(255,255,255,0.2);
+  color: var(--text-3);
   padding-top: 16px;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  border-top: 1px solid var(--border-light);
 }
 .si-footer-dot {
   width: 6px;
@@ -496,8 +496,8 @@
 .spinner {
   width: 15px;
   height: 15px;
-  border: 2px solid rgba(255,255,255,0.25);
-  border-top-color: #fff;
+  border: 2px solid var(--border);
+  border-top-color: var(--text-1);
   border-radius: 50%;
   animation: si-spin 0.65s linear infinite;
 }

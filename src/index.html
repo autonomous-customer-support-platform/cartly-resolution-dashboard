@@ -24,6 +24,31 @@
          SIGN-IN PAGE — Two-column layout
     ══════════════════════════════════════════ -->
     <div class="si-page">
+      <div class="topbar-controls">
+        <div class="custom-dropdown" id="lang-selector">
+          <button class="lang-dropdown" id="lang-dropdown-btn" aria-haspopup="listbox" aria-expanded="false">
+            <span>🇺🇸 English [US]</span>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <ul class="dropdown-menu" id="lang-dropdown-menu" role="listbox" hidden>
+            <li class="dropdown-item" role="option" data-value="en">🇺🇸 English [US]</li>
+            <li class="dropdown-item" role="option" data-value="es">🇪🇸 Español [ES]</li>
+            <li class="dropdown-item" role="option" data-value="fr">🇫🇷 Français [FR]</li>
+            <li class="dropdown-item" role="option" data-value="de">🇩🇪 Deutsch [DE]</li>
+            <li class="dropdown-item" role="option" data-value="it">🇮🇹 Italiano [IT]</li>
+            <li class="dropdown-item" role="option" data-value="ja">🇯🇵 日本語 [JP]</li>
+            <li class="dropdown-item" role="option" data-value="zh">🇨🇳 中文 [CN]</li>
+            <li class="dropdown-item" role="option" data-value="hi">🇮🇳 हिन्दी [IN]</li>
+            <li class="dropdown-item" role="option" data-value="bn">🇮🇳 বাংলা [IN]</li>
+            <li class="dropdown-item" role="option" data-value="te">🇮🇳 తెలుగు [IN]</li>
+            <li class="dropdown-item" role="option" data-value="mr">🇮🇳 मराठी [IN]</li>
+            <li class="dropdown-item" role="option" data-value="ta">🇮🇳 தமிழ் [IN]</li>
+          </ul>
+        </div>
+        <button id="theme-toggle" class="btn-icon-round" aria-label="Toggle Dark Mode">
+          <!-- Sun / Moon icon will be set by JS -->
+        </button>
+      </div>
 
       <!-- ── LEFT: Value column ───────────────── -->
       <div class="si-left">
@@ -44,18 +69,18 @@
           <!-- Live badge -->
           <div class="si-live-badge">
             <span class="si-live-dot"></span>
-            Support is live right now
+            <span data-i18n="live_support">Support is live right now</span>
           </div>
 
           <h1 class="si-headline">
-            Support that<br/>actually<br/>
-            <span class="si-headline-grad">resolves</span>
+            <span data-i18n="headline_1">Support that</span><br/><span data-i18n="headline_2">actually</span><br/>
+            <span class="si-headline-grad" data-i18n="headline_3">resolves</span>
           </h1>
 
           <p class="si-desc">
-            Get real answers in seconds — not ticket numbers.
-            Whether it's a delayed shipment, a failed payment,
-            or a missing item, Cartly handles it instantly.
+            <span data-i18n="desc_1">Get real answers in seconds — not ticket numbers.</span>
+            <span data-i18n="desc_2">Whether it's a delayed shipment, a failed payment,</span>
+            <span data-i18n="desc_3">or a missing item, Cartly handles it instantly.</span>
           </p>
 
           <!-- Use-case benefit cards -->
@@ -65,8 +90,8 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
               </div>
               <div class="si-benefit-body">
-                <div class="si-benefit-title">Instant answers, no queues</div>
-                <div class="si-benefit-sub">Ask anything about your order and get a clear answer right away.</div>
+                <div class="si-benefit-title" data-i18n="benefit_1_title">Instant answers, no queues</div>
+                <div class="si-benefit-sub"><span data-i18n="benefit_1_sub">Ask anything about your order and get a clear answer right away.</span></div>
               </div>
             </div>
             <div class="si-benefit">
@@ -74,8 +99,8 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
               </div>
               <div class="si-benefit-body">
-                <div class="si-benefit-title">Live delivery tracking</div>
-                <div class="si-benefit-sub">See exactly where your package is at any moment.</div>
+                <div class="si-benefit-title" data-i18n="benefit_2_title">Live delivery tracking</div>
+                <div class="si-benefit-sub"><span data-i18n="benefit_2_sub">See exactly where your package is at any moment.</span></div>
               </div>
             </div>
             <div class="si-benefit">
@@ -83,8 +108,8 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
               </div>
               <div class="si-benefit-body">
-                <div class="si-benefit-title">Refunds resolved in minutes</div>
-                <div class="si-benefit-sub">Payment problems and refund requests handled automatically.</div>
+                <div class="si-benefit-title" data-i18n="benefit_3_title">Refunds resolved in minutes</div>
+                <div class="si-benefit-sub"><span data-i18n="benefit_3_sub">Payment problems and refund requests handled automatically.</span></div>
               </div>
             </div>
             <div class="si-benefit">
@@ -92,14 +117,14 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
               </div>
               <div class="si-benefit-body">
-                <div class="si-benefit-title">Available 24 / 7</div>
-                <div class="si-benefit-sub">Support that never sleeps — your issues don't keep business hours.</div>
+                <div class="si-benefit-title" data-i18n="benefit_4_title">Available 24 / 7</div>
+                <div class="si-benefit-sub"><span data-i18n="benefit_4_sub">Support that never sleeps — your issues don't keep business hours.</span></div>
               </div>
             </div>
           </div>
 
           <a href="/about.html" class="si-learn-more">
-            Learn how Cartly works
+            <span data-i18n="learn_more">Learn how Cartly works</span>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
           </a>
         </div>
@@ -121,15 +146,15 @@
             </svg>
             <div>
               <div class="si-card-brand">CARTLY</div>
-              <div class="si-card-tagline">Support &amp; Resolution</div>
+              <div class="si-card-tagline"><span data-i18n="card_tagline">Support &amp; Resolution</span></div>
             </div>
           </div>
 
           <!-- Tabs -->
           <div class="si-tabs">
-            <button class="si-tab si-tab-active" data-target="form-customer" id="tab-user">Customer</button>
-            <button class="si-tab" data-target="form-signup" id="tab-signup">Sign Up</button>
-            <button class="si-tab" data-target="form-admin" id="tab-admin">Admin</button>
+            <button class="si-tab si-tab-active" data-target="form-customer" id="tab-user" data-i18n="tab_customer">Customer</button>
+            <button class="si-tab" data-target="form-signup" id="tab-signup" data-i18n="tab_signup">Sign Up</button>
+            <button class="si-tab" data-target="form-admin" id="tab-admin" data-i18n="tab_admin">Admin</button>
           </div>
 
           <div class="si-rule"></div>
@@ -137,15 +162,15 @@
           <!-- ─ CUSTOMER LOGIN ─ -->
           <form id="form-customer" class="si-form si-form-active">
             <div class="si-form-top">
-              <h2 class="si-form-title">Welcome back</h2>
-              <p class="si-form-sub">Sign in to view your orders and get support</p>
+              <h2 class="si-form-title" data-i18n="welcome_back">Welcome back</h2>
+              <p class="si-form-sub"><span data-i18n="form_sub">Sign in to view your orders and get support</span></p>
             </div>
 
             <div id="google-btn-user" style="display: flex; justify-content: center; margin-bottom: 24px;"></div>
-            <div class="si-or">or continue with email</div>
+            <div class="si-or"><span data-i18n="or_email">or continue with email</span></div>
 
             <div class="si-field">
-              <label for="cust-email">Email</label>
+              <label for="cust-email" data-i18n="label_email">Email</label>
               <div class="si-input-wrap">
                 <span class="si-input-icon">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
@@ -155,7 +180,7 @@
             </div>
 
             <div class="si-field">
-              <label for="cust-password">Password</label>
+              <label for="cust-password" data-i18n="label_password">Password</label>
               <div class="si-input-wrap">
                 <span class="si-input-icon">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
@@ -170,7 +195,7 @@
             </div>
 
             <button type="submit" class="si-submit" id="btn-user-login">
-              <span class="btn-text">Sign In</span>
+              <span class="btn-text" data-i18n="btn_signin">Sign In</span>
               <span class="spinner hidden"></span>
             </button>
           </form>
@@ -274,5 +299,6 @@
     </div>
 
     <script type="module" src="/scripts/signin.js"></script>
+    <script type="module" src="/scripts/preferences.js"></script>
   </body>
 </html>

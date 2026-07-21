@@ -156,12 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
     setLoading(btn, true);
 
     const email = document.getElementById('cust-email').value.trim();
+    const password = document.getElementById('cust-password').value.trim();
 
     try {
       const res = await fetch('http://localhost:8000/api/v1/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email })
+        body: JSON.stringify({ email: email, password: password })
       });
       
       const data = await res.json();
@@ -176,6 +177,8 @@ document.addEventListener('DOMContentLoaded', () => {
         email: data.email,
         name: data.name
       }));
+      // Clear any previous user's active session so a new user never sees another user's chat history
+      localStorage.removeItem('cartly_active_session');
       window.location.href = '/chat.html';
     } catch (err) {
       setLoading(btn, false);
@@ -231,7 +234,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('http://localhost:8000/api/v1/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ first_name: first, last_name: last, email: email })
+        body: JSON.stringify({ first_name: first, last_name: last, email: email, password: password })
       });
       
       const data = await res.json();
@@ -246,6 +249,8 @@ document.addEventListener('DOMContentLoaded', () => {
         email: data.email,
         name: data.name,
       }));
+      // Clear any previous user's active session so a new user never sees another user's chat history
+      localStorage.removeItem('cartly_active_session');
       window.location.href = '/chat.html';
     } catch (err) {
       setLoading(btn, false);

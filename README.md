@@ -19,6 +19,34 @@ This application is built with a sleek, modern glassmorphism aesthetic using van
 - **Order & Payment Directories**: Dynamic tables with pagination, query searches, and status filtering.
 - **Redesigned Record Details**: Clicking a row opens a beautifully structures Card Grid layout modal instead of raw, hard-to-read JSON blocks.
 - **Robust E2E Test Suite**: Fully automated test workflows using Playwright.
+- **Responsive Layout**: Adapts gracefully to all screen sizes.
+- **Dark/Light Mode**: Full theme support with premium UI and high contrast visibility.
+- **Localization**: Built-in multi-language support (English, Spanish, French, German, Japanese, Chinese, Hindi, etc).
+- **Real-time LLM Translation**: Live translation of LLM chat responses based on the selected language.
+
+
+---
+
+
+## Screenshots
+
+### Admin Dashboard (Dark Mode)
+![Admin Dashboard Dark Mode](./src/assets/dashboard.png)
+
+### Admin Dashboard (Light Mode)
+![Admin Dashboard Light Mode](./src/assets/dashboard_light_mode.png)
+
+### Support Chat Interface
+![Support Chat](./src/assets/chat.png)
+
+### Sign In Page (Dark Mode)
+![Sign In Dark Mode](./src/assets/home.png)
+
+### Sign In Page (Light Mode)
+![Sign In Light Mode](./src/assets/home_light_mode.png)
+
+### Sign In Page (Hindi Localization)
+![Sign In Hindi](./src/assets/home_hindi.png)
 
 ---
 
